@@ -1,18 +1,17 @@
-﻿using GrabBagProject.Controllers;
+﻿using GrabBagProject;
+using GrabBagProject.Controllers;
 using GrabBagProject.Utilities;
 
 public class Program
 {
-    Controller activeController;
+
+    public static bool GameLooping = true;
+    static Game GameInstance;
     public static void Main(string[] args)
     {
         // See https://aka.ms/new-console-template for more information
-        Console.WriteLine("What is your name?");
-        string? input = null;
-        while (input == null || input.ToLowerInvariant() != "quit")
-        {
-            input = Console.ReadLine();
-        }
+        GameInstance = new Game();
+        while (GameLooping) { GameInstance.Loop(); }
     }
 }
 
