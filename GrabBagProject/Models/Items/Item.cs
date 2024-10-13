@@ -6,14 +6,20 @@ using System.Threading.Tasks;
 
 namespace GrabBagProject.Models.Items
 {
-    internal class Item : IInteractable
+    internal class Item
     {
         public string Name { get; set; }
         public string Description { get; set; }
 
-        public string GetDescription()
+        public Item(string name, string description)
         {
-            return Description;
+            Name = name;
+            Description = description;
+        }
+
+        public override string ToString()
+        {
+            return $"{Name} - {Description}";
         }
     }
 }
