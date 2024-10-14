@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace GrabBagProject.Models.Items
 {
-    internal class Inventory : ItemHolder
+    internal class Shop : ItemHolder
     {
-        public Inventory(int capacity) : base(capacity) { }
+        public Shop(int capacity) : base(capacity) { }
 
         public override string ToString()
         {
-            string response = "Inventory - To learn more about an item, type 'i #' where # is the number associated with it:";
+            string response = "Shop - To learn more about an item, type 's #' where # is the number associated with it:";
             for (int i = 0; i < _items.Count; i++)
             {
                 Item item = _items[i];

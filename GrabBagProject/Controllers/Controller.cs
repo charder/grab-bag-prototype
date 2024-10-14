@@ -29,7 +29,7 @@ namespace GrabBagProject.Controllers
                 "List current inventory items.",
                 ["inventory", "inv", "i"]
                 );
-            AddCommand(command, PrintInventory);
+            AddCommand(command, Inventory);
             command = new Command(
                 "Quit Game",
                 "As the name suggests, exit the game immediately.",
@@ -55,21 +55,22 @@ namespace GrabBagProject.Controllers
             string command = args[0];
             if (Calls.ContainsKey(command))
                 Calls[command].Invoke(args);
+            Console.WriteLine("");
+        }
+
+        private void Inventory(string[] args)
+        {
+            if (args.Length == 1)
+                Console.WriteLine(Game.Player.Inventory.ToString());
             else
             {
-                if (int.TryParse(command, out int value))
+                if (int.TryParse(args[1], out int value))
                 {
                     Item? item = Game.Player.Inventory.GetItem(value);
                     if (item != null)
                         Console.WriteLine(item.ToString());
                 }
             }
-            Console.WriteLine("");
-        }
-
-        private void PrintInventory(string[] args)
-        {
-            Console.WriteLine(Game.Player.Inventory.ToString());
         }
 
         private void PrintCommands()
