@@ -61,7 +61,9 @@ namespace GrabBagProject.Controllers
         private void Inventory(string[] args)
         {
             if (args.Length == 1)
+            {
                 Console.WriteLine(Game.Player.Inventory.ToString());
+            }
             else
             {
                 if (int.TryParse(args[1], out int value))

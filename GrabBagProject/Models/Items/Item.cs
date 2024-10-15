@@ -10,6 +10,8 @@ namespace GrabBagProject.Models.Items
     {
         public string Name { get; set; }
         public string Description { get; set; }
+        public int Value { get; set; }
+        public bool InInventory { get; set; }
 
         public Item(string name, string description)
         {
@@ -19,7 +21,9 @@ namespace GrabBagProject.Models.Items
 
         public override string ToString()
         {
-            return $"{Name} - {Description}";
+            string value = $"{Name} - {Description}\n" +
+                (InInventory ? $"Sell Value: {Value / 2}" : $"Cost: {Value}");
+            return value;
         }
     }
 }

@@ -22,7 +22,7 @@ namespace GrabBagProject.Models.Items
             return index >= _items.Count ? null : _items[index];
         }
 
-        public bool AddItem(Item item)
+        public virtual bool AddItem(Item item)
         {
             if (_items.Count >= _capacity)
                 return false;
@@ -30,7 +30,7 @@ namespace GrabBagProject.Models.Items
             return true;
         }
 
-        public bool RemoveItem(Item item)
+        public virtual bool RemoveItem(Item item)
         {
             return _items.Remove(item);
         }

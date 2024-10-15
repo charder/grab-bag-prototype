@@ -21,5 +21,25 @@ namespace GrabBagProject.Models.Items
             }
             return response;
         }
+
+        public override bool AddItem(Item item)
+        {
+            if (base.AddItem(item))
+            {
+                item.InInventory = true;
+                return true;
+            }
+            return false;
+        }
+
+        public override bool RemoveItem(Item item)
+        {
+            if (base.RemoveItem(item))
+            {
+                item.InInventory = false;
+                return true;
+            }
+            return false;
+        }
     }
 }
