@@ -13,10 +13,11 @@ namespace GrabBagProject.Models.Items
         public int Value { get; set; }
         public bool InInventory { get; set; }
 
-        public Item(string name, string description)
+        public Item(string name, string description, int value = 0)
         {
             Name = name;
             Description = description;
+            Value = value;
         }
 
         public override string ToString()

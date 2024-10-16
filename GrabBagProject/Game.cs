@@ -19,8 +19,8 @@ namespace GrabBagProject
         {
             Console.WriteLine("Welcome to Grab Bag Brawl! For a list of input options, press enter without typing anything.");
             Inventory inventory = Player.Inventory;
-            inventory.AddItem(new Item("Sword", "Basic sharp blade."));
-            inventory.AddItem(new Item("Wooden Shield", "Weak wooden shield for blocking some damage."));
+            inventory.AddItem(new Item("Sword", "Basic sharp blade.", 4));
+            inventory.AddItem(new Item("Wooden Shield", "Weak wooden shield for blocking some damage.", 4));
         }
         public void Loop()
         {

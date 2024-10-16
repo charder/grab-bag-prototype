@@ -13,8 +13,8 @@ namespace GrabBagProject.Controllers
         protected Shop _shop = new Shop(99);
         public override void Constructor()
         {
-            _shop.AddItem(new Item("Iron Shield", "A much stronger shield, able to block more damage."));
-            _shop.AddItem(new Item("Bow & Arrow", "A ranged option, able to strike foes from a distance."));
+            _shop.AddItem(new Item("Iron Shield", "A much stronger shield, able to block more damage.", 10));
+            _shop.AddItem(new Item("Bow & Arrow", "A ranged option, able to strike foes from a distance.", 6));
             Command command = new Command(
                 "Shop",
                 "List current shop inventory.",
@@ -61,8 +61,19 @@ namespace GrabBagProject.Controllers
                     Item? item = _shop.GetItem(value);
                     if (item != null)
                     {
-                        //TODO: ADD PURCHASE LOGIC.
-                        Console.WriteLine(item.ToString());
+                        Inventory inventory = Game.Player.Inventory;
+                        int cost = item.Value;
+                        if (!inventory.HasSpace)
+                            Console.WriteLine("Inventory is full! Sell items to make space.");
+                        else if (inventory.Gold < cost)
+                            Console.WriteLine($"Not enough gold to purchase {item.Name}! Need {cost}, have {inventory.Gold}.");
+                        else
+                        {
+                            inventory.Gold -= cost;
+                            _shop.RemoveItem(item);
+                            inventory.AddItem(item);
+                            Console.WriteLine($"Purchased {item.Name} for {cost} gold.");
+                        }
                     }
                     else
                         Console.WriteLine($"Invalid purchase - '{value}' is not a valid option. Type 'shop' for a list of available items.");

@@ -17,6 +17,11 @@ namespace GrabBagProject.Models.Items
             _capacity = capacity;
         }
 
+        public bool HasSpace
+        {
+            get { return _items.Count < _capacity; }
+        }
+
         public Item? GetItem(int index)
         {
             return index >= _items.Count ? null : _items[index];

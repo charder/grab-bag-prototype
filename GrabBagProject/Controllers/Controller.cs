@@ -31,6 +31,12 @@ namespace GrabBagProject.Controllers
                 );
             AddCommand(command, Inventory);
             command = new Command(
+                "Use Item",
+                "Use an item in your inventory.",
+                ["use", "u"]
+                );
+            AddCommand(command, Inventory);
+            command = new Command(
                 "Quit Game",
                 "As the name suggests, exit the game immediately.",
                 ["quit", "q"]
@@ -84,7 +90,26 @@ namespace GrabBagProject.Controllers
             Console.WriteLine("");
         }
 
-        private void QuitCommand(string[] args)
+        protected virtual void UseItem(string[] args)
+        {
+            if (args.Length == 1)
+            {
+                Console.WriteLine("To use an item in your inventory, type the number after use. Ex: 'use 1'.");
+            }
+            else
+            {
+                if (int.TryParse(args[1], out int value))
+                {
+                    Item? item = Game.Player.Inventory.GetItem(value);
+                    if (item != null)
+                    {
+
+                    }
+                }
+            }
+        }
+
+        protected void QuitCommand(string[] args)
         {
             Program.GameLooping = false;
         }

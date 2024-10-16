@@ -17,7 +17,7 @@ namespace GrabBagProject.Models.Items
             {
                 Item item = _items[i];
                 if (item != null)
-                    response += $"\n{i}. {item.Name}";
+                    response += $"\n{i}. {item.Name} - Cost: {item.Value}";
             }
             return response;
         }
