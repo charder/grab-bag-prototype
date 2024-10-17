@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GrabBagProject.Models.Items
+﻿namespace GrabBagProject.Models.Items
 {
     internal class Item
     {
@@ -13,11 +7,19 @@ namespace GrabBagProject.Models.Items
         public int Value { get; set; }
         public bool InInventory { get; set; }
 
-        public Item(string name, string description, int value = 0)
+        public Item() { }
+
+        public virtual Item Build(Item item)
+        {
+            return Build(item.Name, item.Description, item.Value);
+        }
+
+        public Item Build(string name, string description, int value = 0)
         {
             Name = name;
             Description = description;
             Value = value;
+            return this;
         }
 
         public override string ToString()

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GrabBagProject.Models.Items
+﻿namespace GrabBagProject.Models.Items.ItemHolders
 {
     internal abstract class ItemHolder
     {

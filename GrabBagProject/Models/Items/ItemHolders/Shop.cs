@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace GrabBagProject.Models.Items
+﻿namespace GrabBagProject.Models.Items.ItemHolders
 {
     internal class Shop : ItemHolder
     {
-        public Shop(int capacity) : base(capacity) { }
+        protected bool _canSell;
+        public bool CanSell
+        {
+            get { return _canSell; }
+        }
+        public Shop(int capacity, bool canSell = true) : base(capacity) { _canSell = canSell; }
 
         public override string ToString()
         {

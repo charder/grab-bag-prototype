@@ -1,10 +1,5 @@
 ﻿using GrabBagProject.Models.Commands;
 using GrabBagProject.Models.Items;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GrabBagProject.Controllers
 {
@@ -13,6 +8,8 @@ namespace GrabBagProject.Controllers
     /// </summary>
     internal class Controller
     {
+        public bool Completed = false;
+
         public delegate void Call(params string[] args);
 
         public List<Command> Commands = new List<Command>();
