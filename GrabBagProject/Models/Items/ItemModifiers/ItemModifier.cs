@@ -7,7 +7,7 @@
         public override Item Build(Item item)
         {
             _item = item;
-            return this;
+            return base.Build(item);
         }
     }
 }
