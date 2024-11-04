@@ -8,7 +8,7 @@ namespace GrabBagProject
     internal class Game
     {
         string? input;
-        Controller activeController = new ShopController();
+        public static Controller ActiveController = new ShopController();
         public static Player Player = new Player(20);
 
         public Game()
@@ -20,11 +20,11 @@ namespace GrabBagProject
         }
         public void Loop()
         {
-            if (!activeController.Completed)
+            if (!ActiveController.Completed)
             {
                 input = Console.ReadLine();
                 string[] inputs = string.IsNullOrEmpty(input) ? [] : (input.ToLower()).Split(' ');
-                activeController.ParseInput(inputs);
+                ActiveController.ParseInput(inputs);
             }
         }
     }
