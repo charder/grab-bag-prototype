@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace GrabBagProject.Models.Items.ItemModifiers
 {
-    internal class HealthItem : ItemModifier
+    internal class DamageItem : ItemModifier
     {
         protected int _value;
-        public HealthItem(int value)
+        public DamageItem(int value)
         {
             _value = value;
         }
@@ -17,10 +17,10 @@ namespace GrabBagProject.Models.Items.ItemModifiers
         public override string ToString()
         {
             string value = base.ToString();
-            return value += $"\nOn Use: Heal {GetHealthValue()}";
+            return value += $"\nOn Use: Deal {GetDamageValue()} damage";
         }
 
-        public virtual int GetHealthValue()
+        public virtual int GetDamageValue()
         {
             return _value;
         }

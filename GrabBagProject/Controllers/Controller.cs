@@ -1,5 +1,6 @@
 ﻿using GrabBagProject.Models.Commands;
 using GrabBagProject.Models.Items;
+using GrabBagProject.Models.Items.ItemModifiers;
 using GrabBagProject.Utilities;
 
 namespace GrabBagProject.Controllers
@@ -33,7 +34,7 @@ namespace GrabBagProject.Controllers
                 "Use an item in your inventory.",
                 ["use", "u"]
                 );
-            AddCommand(command, Inventory);
+            AddCommand(command, TryUseItem);
             command = new Command(
                 "Quit Game",
                 "As the name suggests, exit the game immediately.",
@@ -88,7 +89,7 @@ namespace GrabBagProject.Controllers
             Console.WriteLine("");
         }
 
-        protected virtual void UseItem(string[] args)
+        protected void TryUseItem(string[] args)
         {
             if (args.Length == 1)
             {
@@ -101,10 +102,16 @@ namespace GrabBagProject.Controllers
                     Item? item = Game.Player.Inventory.GetItem(value);
                     if (item != null)
                     {
-
+                        if (!UseItem(item))
+                            Console.WriteLine($"Cannot use {item.Name} at this time.");
                     }
                 }
             }
+        }
+
+        protected virtual bool UseItem(Item item)
+        {
+            return false;
         }
 
         protected void QuitCommand(string[] args)
