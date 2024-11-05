@@ -1,6 +1,7 @@
 ﻿using GrabBagProject.Controllers;
 using GrabBagProject.Models.Items;
 using GrabBagProject.Models.Items.ItemHolders;
+using GrabBagProject.Models.Items.ItemModifiers;
 using GrabBagProject.Models.Units;
 
 namespace GrabBagProject
@@ -17,6 +18,7 @@ namespace GrabBagProject
             Inventory inventory = Player.Inventory;
             inventory.AddItem(new Item().Build("Sword", "Basic sharp blade.", 4));
             inventory.AddItem(new Item().Build("Wooden Shield", "Weak wooden shield for blocking some damage.", 4));
+            inventory.AddItem(new ItemQuantity(4).Build(new HealthItem(10).Build(new Item().Build("Healing Potion", "Simple means of regaining health."))));
         }
         public void Loop()
         {

@@ -9,5 +9,10 @@
             _item = item;
             return base.Build(item);
         }
+
+        public override string ToString()
+        {
+            return _item.ToString();
+        }
     }
 }

@@ -24,9 +24,12 @@
 
         public override string ToString()
         {
-            string value = $"{Name} - {Description}\n" +
-                (InInventory ? $"Sell Value: {Value / 2}" : $"Cost: {Value}");
-            return value;
+            return $"{Name} - {Description}";
+        }
+
+        public virtual string CostString()
+        {
+            return "\n" + (InInventory ? $"Sell Value: {Value / 2}" : $"Cost: {Value}");
         }
     }
 }

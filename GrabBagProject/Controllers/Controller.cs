@@ -1,5 +1,6 @@
 ﻿using GrabBagProject.Models.Commands;
 using GrabBagProject.Models.Items;
+using GrabBagProject.Utilities;
 
 namespace GrabBagProject.Controllers
 {
@@ -73,7 +74,7 @@ namespace GrabBagProject.Controllers
                 {
                     Item? item = Game.Player.Inventory.GetItem(value);
                     if (item != null)
-                        Console.WriteLine(item.ToString());
+                        Console.WriteLine(Utils.ItemToString(item));
                 }
             }
         }
