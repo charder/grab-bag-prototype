@@ -6,23 +6,20 @@ using System.Threading.Tasks;
 
 namespace GrabBagProject.Models.Items.ItemModifiers
 {
-    internal class DamageItem : ItemModifier
+    /// <summary>
+    /// Specifies cost of using this item. Only allows use in combat.
+    /// </summary>
+    internal class CombatCost : ItemModifier
     {
-        protected int _value;
-        public DamageItem(int value)
+        public CombatCost()
         {
-            _value = value;
+
         }
 
         public override string ToString()
         {
             string value = base.ToString();
-            return value += $"\nOn Use: Deal {GetDamageValue()} damage";
-        }
-
-        public virtual int GetDamageValue()
-        {
-            return _value;
+            return value;
         }
     }
 }

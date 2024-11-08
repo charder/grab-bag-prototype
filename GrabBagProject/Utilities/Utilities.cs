@@ -8,10 +8,5 @@ namespace GrabBagProject.Utilities
         {
             return string.Equals(str1, str2, StringComparison.OrdinalIgnoreCase);
         }
-
-        public static string ItemToString(Item item)
-        {
-            return item.ToString() + item.CostString();
-        }
     }
 }

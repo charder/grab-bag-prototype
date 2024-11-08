@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace GrabBagProject.Models.Items.ItemModifiers
 {
-    internal class HealthItem : ItemModifier
+    internal class HealthModifier : ItemModifier
     {
         protected int _value;
-        public HealthItem(int value)
+        public HealthModifier(int value)
         {
             _value = value;
         }

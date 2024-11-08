@@ -54,7 +54,7 @@ namespace GrabBagProject.Controllers
                 {
                     Item? item = _shop.GetItem(value);
                     if (item != null)
-                        Console.WriteLine(Utils.ItemToString(item));
+                        Console.WriteLine(item.ToString());
                 }
             }
         }
