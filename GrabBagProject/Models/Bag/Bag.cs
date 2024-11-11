@@ -6,13 +6,8 @@ using System.Threading.Tasks;
 
 namespace GrabBagProject.Models.Bag
 {
-    internal class Resource
+    internal class Bag
     {
-
-    }
-
-    internal enum ResourceType
-    {
-
+        public List<Piece> Pieces { get; set; }
     }
 }
