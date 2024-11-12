@@ -18,6 +18,11 @@ namespace GrabBagProject.Models.Bag
         {
             return $"{Name} {Value} - {Description} - {Type.ToString()}";
         }
+
+        public bool Equals(Piece other)
+        {
+            return other.Name.Equals(Name) && other.Value == Value;
+        }
     }
 
     internal enum PieceType
