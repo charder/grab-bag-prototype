@@ -8,6 +8,12 @@ namespace GrabBagProject.Controllers
     {
         public override void Constructor()
         {
+            Command command = new Command(
+                "Pass",
+                "When you've finished using your pieces, this ends your turn.",
+                ["pass", "p"]
+                );
+            AddCommand(command, Pass);
             base.Constructor();
         }
 
@@ -16,7 +22,7 @@ namespace GrabBagProject.Controllers
             base.ParseInput(args);
         }
 
-        private void Leave(string[] args)
+        private void Pass(string[] args)
         {
 
         }

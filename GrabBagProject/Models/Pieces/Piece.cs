@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GrabBagProject.Models.Bag
+namespace GrabBagProject.Models.Pieces
 {
     internal class Piece
     {

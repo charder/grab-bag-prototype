@@ -4,6 +4,7 @@
     {
         public int CurrentHealth { get; set; }
         public int Health { get; set; }
+        public int Armor { get; set; }
 
         public void BuildUnit()
         {

@@ -1,6 +1,7 @@
 ﻿using GrabBagProject.Models.Commands;
 using GrabBagProject.Models.Items;
 using GrabBagProject.Models.Items.ItemModifiers;
+using GrabBagProject.Models.Units;
 using GrabBagProject.Utilities;
 
 namespace GrabBagProject.Controllers
@@ -24,17 +25,23 @@ namespace GrabBagProject.Controllers
         public virtual void Constructor()
         {
             Command command = new Command(
+                "Use Item",
+                "Use an item in your inventory.",
+                ["use", "u"]
+                );
+            AddCommand(command, TryUseItem);
+            command = new Command(
                 "Inventory",
                 "List current inventory items.",
                 ["inventory", "inv", "i"]
                 );
             AddCommand(command, Inventory);
             command = new Command(
-                "Use Item",
-                "Use an item in your inventory.",
-                ["use", "u"]
+                "View Bag",
+                "List all available Pieces in your bag.",
+                ["view", "v"]
                 );
-            AddCommand(command, TryUseItem);
+            AddCommand(command, ViewBag);
             command = new Command(
                 "Quit Game",
                 "As the name suggests, exit the game immediately.",
@@ -54,13 +61,23 @@ namespace GrabBagProject.Controllers
         {
             if (args.Length == 0)
             {
-                PrintCommands();
+                Console.WriteLine(ToString());
                 return;
             }
             string command = args[0];
             if (Calls.ContainsKey(command))
                 Calls[command].Invoke(args);
             Console.WriteLine("");
+        }
+
+        public override string ToString()
+        {
+            string commands = "";
+            foreach(Command command in Commands)
+            {
+                commands += command.ToString() + "\n";
+            }
+            return commands;
         }
 
         private void Inventory(string[] args)
@@ -80,13 +97,9 @@ namespace GrabBagProject.Controllers
             }
         }
 
-        private void PrintCommands()
+        protected void ViewBag(string[] args)
         {
-            foreach(Command command in Commands)
-            {
-                Console.WriteLine(command.ToString());
-            }
-            Console.WriteLine("");
+            Console.WriteLine(Game.Player.Bag.ToString());
         }
 
         protected void TryUseItem(string[] args)

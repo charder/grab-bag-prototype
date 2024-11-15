@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GrabBagProject.Models.Bag
+namespace GrabBagProject.Models.Pieces
 {
     internal class Bag
     {
@@ -13,6 +13,16 @@ namespace GrabBagProject.Models.Bag
         public Bag()
         {
             Pieces = new List<Piece>();
+        }
+
+        public override string ToString()
+        {
+            string contents = "Contents of Bag:\n";
+            foreach(Piece piece in Pieces)
+            {
+                contents += piece.ToString() + "\n";
+            }
+            return contents;
         }
 
         /// <summary>
