@@ -5,6 +5,8 @@ using GrabBagProject.Models.Items.ItemModifiers;
 using GrabBagProject.Models.Pieces;
 using GrabBagProject.Models.Units;
 
+using GrabBagProject.Utilities;
+
 namespace GrabBagProject
 {
     internal class Game

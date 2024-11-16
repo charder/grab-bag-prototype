@@ -13,4 +13,8 @@
     <None Remove="Constants\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
+
 </Project>

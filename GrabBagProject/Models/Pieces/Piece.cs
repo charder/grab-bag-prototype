@@ -14,6 +14,16 @@ namespace GrabBagProject.Models.Pieces
         public int Quantity { get; set; }
         public PieceType Type { get; set; }
 
+        public virtual Piece Build(string name, string description, int value, PieceType type, int quantity = 1)
+        {
+            Name = name;
+            Description = description;
+            Value = value;
+            Type = type;
+            Quantity = quantity;
+            return this;
+        }
+
         public override string ToString()
         {
             return $"{Name} {Value} - {Description} - {Type.ToString()}";

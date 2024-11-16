@@ -1,0 +1,37 @@
+[
+  {
+    "Name": "Power",
+    "Description": "Resource centered around dealing damage.",
+    "Value": 1,
+    "Quantity": 4,
+    "Type": 1
+  },
+  {
+    "Name": "Guard",
+    "Description": "Resource centered around protecting yourself.",
+    "Value": 1,
+    "Quantity": 4,
+    "Type": 1
+  },
+  {
+    "Name": "Mana",
+    "Description": "Resource centered around special abilities.",
+    "Value": 1,
+    "Quantity": 4,
+    "Type": 1
+  },
+  {
+    "Name": "Agility",
+    "Description": "Resource centered cooldown management.",
+    "Value": 1,
+    "Quantity": 2,
+    "Type": 1
+  },
+  {
+    "Name": "Coin",
+    "Description": "Resource centered around currency.",
+    "Value": 1,
+    "Quantity": 2,
+    "Type": 1
+  }
+]
