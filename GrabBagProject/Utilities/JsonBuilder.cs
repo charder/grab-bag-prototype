@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
 using System.Text.Json;
 
 namespace GrabBagProject.Utilities
@@ -17,6 +18,22 @@ namespace GrabBagProject.Utilities
         public static T? FromJson<T>(string json)
         {
             return JsonSerializer.Deserialize<T>(json);
+        }
+
+        public static T? FromFile<T>(string path)
+        {
+            try
+            {
+                using (StreamReader reader = new StreamReader(path))
+                {
+                    string json = reader.ReadToEnd();
+                    return FromJson<T>(json);
+                }
+            }
+            catch
+            {
+                throw;
+            }
         }
     }
 }
