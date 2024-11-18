@@ -7,7 +7,7 @@
 
         public override string ToString()
         {
-            string response = "Inventory - To learn more about an item, type 'i #' where # is the number associated with it:";
+            string response = $"Inventory [{_items.Count}/{_capacity}] - To learn more about an item, type 'i #' where # is the number associated with it:";
             // Items List
             for (int i = 0; i < _items.Count; i++)
             {
