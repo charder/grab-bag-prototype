@@ -1,0 +1,32 @@
+[
+  {
+    "Name": "Power",
+    "Description": "Centered around dealing damage.",
+    "Value": 1,
+    "Type": 1
+  },
+  {
+    "Name": "Guard",
+    "Description": "Centered around protecting yourself.",
+    "Value": 1,
+    "Type": 1
+  },
+  {
+    "Name": "Mana",
+    "Description": "Centered around special abilities.",
+    "Value": 1,
+    "Type": 1
+  },
+  {
+    "Name": "Agility",
+    "Description": "Centered cooldown management.",
+    "Value": 1,
+    "Type": 1
+  },
+  {
+    "Name": "Coin",
+    "Description": "Centered around currency.",
+    "Value": 1,
+    "Type": 1
+  }
+]

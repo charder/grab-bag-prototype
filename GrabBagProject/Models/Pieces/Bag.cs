@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GrabBagProject.Utilities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,19 +9,27 @@ namespace GrabBagProject.Models.Pieces
 {
     internal class Bag
     {
-        public List<Piece> Pieces { get; set; }
+        public static Dictionary<string, PieceData> AllPieces { get; set; }
+        public Dictionary<Piece, int> PieceDictionary { get; set; }
 
-        public Bag()
+        public Bag(string piecesJsonFile)
         {
-            Pieces = new List<Piece>();
+            PieceDictionary = new Dictionary<Piece, int>();
+
+            AllPieces = new Dictionary<string, PieceData>();
+            List<PieceData>? pieces = JsonBuilder.FromFile<List<PieceData>>(piecesJsonFile);
+            pieces?.ForEach(p => AllPieces.Add(p.Name, p));
         }
 
         public override string ToString()
         {
             string contents = "Contents of Bag:\n";
-            foreach(Piece piece in Pieces)
+            foreach(KeyValuePair<Piece, int> pair in PieceDictionary)
             {
-                contents += piece.ToString() + "\n";
+                Piece pieceInstance = pair.Key;
+                PieceData? pieceData;
+                if (AllPieces.TryGetValue(pieceInstance.Name, out pieceData))
+                    contents += pieceData.ToString(pieceInstance.Value, pair.Value) + "\n";
             }
             return contents;
         }
@@ -29,17 +38,14 @@ namespace GrabBagProject.Models.Pieces
         /// Add Piece to list of Pieces.
         /// </summary>
         /// <returns>If piece already exists in Bag object.</returns>
-        public bool AddPiece(Piece piece)
+        public bool AddPiece(Piece piece, int quantity = 1)
         {
-            foreach(Piece bagPiece in Pieces)
+            if (PieceDictionary.ContainsKey(piece))
             {
-                if (piece.Equals(bagPiece))
-                {
-                    piece.Quantity += bagPiece.Quantity;
-                    return true;
-                }
+                PieceDictionary[piece] += quantity;
+                return true;
             }
-            Pieces.Add(piece);
+            PieceDictionary.Add(piece, quantity);
             return false;
         }
 
@@ -50,20 +56,11 @@ namespace GrabBagProject.Models.Pieces
         /// <returns>If piece existed in Bag object.</returns>
         public bool RemovePiece(Piece piece, bool removeAll = false)
         {
-            Piece? foundPiece = null;
-            foreach (Piece bagPiece in Pieces)
+            if (PieceDictionary.ContainsKey(piece))
             {
-                if (piece.Equals(bagPiece))
-                {
-                    foundPiece = bagPiece;
-                    break;
-                }
-            }
-            if (foundPiece != null)
-            {
-                int quantity = foundPiece.Quantity -= removeAll ? foundPiece.Quantity : piece.Quantity;
-                if (quantity <= 0)
-                    Pieces.Remove(foundPiece);
+                PieceDictionary[piece]--;
+                if (PieceDictionary[piece] <= 0 || removeAll)
+                    PieceDictionary.Remove(piece);
                 return true;
             }
             return false;
@@ -77,20 +74,9 @@ namespace GrabBagProject.Models.Pieces
         public List<Piece> RollPieces(int count)
         {
             List<Piece> pieces = new List<Piece>();
-            count = Math.Min(count, Pieces.Count);
-            List<Piece> rollOptions = new List<Piece>();
-            foreach(Piece bagPiece in Pieces)
-            {
-                for (int i = 0; i < bagPiece.Quantity; i++)
-                    rollOptions.Add(bagPiece);
-            }
-            for (int i = 0; i < count; i++)
-            {
-                Random random = new Random();
-                int roll = random.Next(rollOptions.Count);
-                pieces.Add(rollOptions[i]);
-                rollOptions.RemoveAt(roll);
-            }
+
+            //TODO: FIX
+
             return pieces;
         }
     }

@@ -2,36 +2,28 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace GrabBagProject.Models.Pieces
 {
-    internal class Piece
+    internal class PieceData
     {
         public string Name { get; set; }
         public string Description { get; set; }
-        public int Value { get; set; }
-        public int Quantity { get; set; }
         public PieceType Type { get; set; }
 
-        public virtual Piece Build(string name, string description, int value, PieceType type, int quantity = 1)
+        public virtual PieceData Build(string name, string description, PieceType type)
         {
             Name = name;
             Description = description;
-            Value = value;
             Type = type;
-            Quantity = quantity;
             return this;
         }
 
-        public override string ToString()
+        public virtual string ToString(int value, int quantity = 1)
         {
-            return $"{Name} {Value} - {Description} - {Type.ToString()}";
-        }
-
-        public bool Equals(Piece other)
-        {
-            return other.Name.Equals(Name) && other.Value == Value;
+            return $"{Name} {value} - {quantity}x - {Description} - {Type.ToString()}";
         }
     }
 
@@ -42,5 +34,11 @@ namespace GrabBagProject.Models.Pieces
         Money = 2,
         Buff = 3,
         Debuff = 4
+    }
+
+    internal struct Piece
+    {
+        public string Name;
+        public int Value;
     }
 }

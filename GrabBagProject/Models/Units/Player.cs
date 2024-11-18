@@ -6,7 +6,7 @@ namespace GrabBagProject.Models.Units
     internal class Player : Unit
     {
         public Inventory Inventory = new Inventory(12);
-        public Bag Bag = new ();
+        public Bag Bag = new (Path.Combine("Data", "pieces.json"));
         public Player(int health)
         {
             Health = health;
