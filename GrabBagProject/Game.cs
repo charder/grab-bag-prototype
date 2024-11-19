@@ -31,7 +31,7 @@ namespace GrabBagProject
             //TODO: TEST BAG CODE
             Bag bag = Player.Bag;
             List<PieceInstance>? pieces = JsonBuilder.FromFile<List<PieceInstance>>(Path.Combine(@"Data", "bag.json"));
-            pieces?.ForEach(p => bag.AddPiece(p.GetPiece(), p.Quantity));
+            pieces?.ForEach(p => bag.AddPiece(p.Piece, p.Quantity));
         }
         public void Loop()
         {

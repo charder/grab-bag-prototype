@@ -6,15 +6,12 @@ using System.Threading.Tasks;
 
 namespace GrabBagProject.Models.Pieces
 {
+    /// <summary>
+    /// Serializable Piece for populating Bag objects from JSON.
+    /// </summary>
     internal class PieceInstance
     {
-        public string Name { get; set; }
-        public int Value { get; set; } 
+        public Piece Piece { get; set; }
         public int Quantity { get; set; }
-
-        public Piece GetPiece()
-        {
-            return new Piece() { Name = Name, Value = Value };
-        }
     }
 }

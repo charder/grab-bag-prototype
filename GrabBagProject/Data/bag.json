@@ -1,27 +1,37 @@
 [
   {
-    "Name": "Power",
-    "Value": 1,
-    "Quantity":  2
-  },
-  {
-    "Name": "Guard",
-    "Value": 1,
+    "Piece": {
+      "Name": "Power",
+      "Value": 1
+    },
     "Quantity": 2
   },
   {
-    "Name": "Mana",
-    "Value": 1,
+    "Piece": {
+      "Name": "Guard",
+      "Value": 1
+    },
     "Quantity": 2
   },
   {
-    "Name": "Agility",
-    "Value": 1,
+    "Piece": {
+      "Name": "Mana",
+      "Value": 1
+    },
     "Quantity": 2
   },
   {
-    "Name": "Coin",
-    "Value": 1,
+    "Piece": {
+      "Name": "Agility",
+      "Value": 1
+    },
+    "Quantity": 2
+  },
+  {
+    "Piece": {
+      "Name": "Coin",
+      "Value": 1
+    },
     "Quantity": 2
   }
 ]
