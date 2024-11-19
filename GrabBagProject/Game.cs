@@ -24,7 +24,7 @@ namespace GrabBagProject
             inventory.AddItem(new Item().Build("Sword", "Basic sharp blade.", 4));
             inventory.AddItem(new Item().Build("Wooden Shield", "Weak wooden shield for blocking some damage.", 4));
             inventory.AddItem(new Item().Build("Healing Potion", "Simple means of regaining health.", 0,
-                               new HealthModifier(10),
+                               new HealthModifier(10), 
                                new ItemQuantity(4))
                 );
 

@@ -85,6 +85,9 @@ namespace GrabBagProject.Controllers
             if (args.Length == 1)
             {
                 Console.WriteLine(Game.Player.Inventory.ToString());
+                CombatController? combatController = this as CombatController;
+                if (combatController != null)
+                    Console.WriteLine($"\n{combatController.PulledPieces.ToString()}");
             }
             else
             {
