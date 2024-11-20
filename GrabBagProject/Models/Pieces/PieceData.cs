@@ -40,5 +40,11 @@ namespace GrabBagProject.Models.Pieces
     {
         public string Name { get; set; }
         public int Value { get; set; }
+
+        public Piece(string name, int value)
+        {
+            Name = name;
+            Value = value;
+        }
     }
 }

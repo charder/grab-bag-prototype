@@ -31,7 +31,7 @@ namespace GrabBagProject.Models.Items
 
         public virtual string CostString()
         {
-            return "\n" + (InInventory ? $"Sell Value: {Value / 2}" : $"Cost: {Value}");
+            return "\n" + (InInventory ? $"Sell Value - {Value / 2}" : $"Cost - {Value}");
         }
     }
 }
