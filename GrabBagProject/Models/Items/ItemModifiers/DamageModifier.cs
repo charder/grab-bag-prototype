@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GrabBagProject.Models.Values.Integer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,8 +9,8 @@ namespace GrabBagProject.Models.Items.ItemModifiers
 {
     internal class DamageModifier : ItemModifier
     {
-        protected int _value;
-        public DamageModifier(int value)
+        protected IIntProperty _value;
+        public DamageModifier(IIntProperty value)
         {
             _value = value;
         }
@@ -17,12 +18,12 @@ namespace GrabBagProject.Models.Items.ItemModifiers
         public override string ToString()
         {
             string value = base.ToString();
-            return value += $"\nOn Use: Deal {GetDamageValue()} damage";
+            return value += $"\nOn Use: Deal {_value.ToString()} damage";
         }
 
         public virtual int GetDamageValue()
         {
-            return _value;
+            return _value.GetValue();
         }
     }
 }

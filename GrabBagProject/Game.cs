@@ -4,7 +4,7 @@ using GrabBagProject.Models.Items.ItemHolders;
 using GrabBagProject.Models.Items.ItemModifiers;
 using GrabBagProject.Models.Pieces;
 using GrabBagProject.Models.Units;
-
+using GrabBagProject.Models.Values.Integer;
 using GrabBagProject.Utilities;
 
 namespace GrabBagProject
@@ -26,8 +26,8 @@ namespace GrabBagProject
                 );
             inventory.AddItem(new Item().Build("Wooden Shield", "Weak wooden shield for blocking some damage.", 4));
             inventory.AddItem(new Item().Build("Healing Potion", "Simple means of regaining health.", 0,
-                               new HealthModifier(10), 
-                               new ItemQuantity(4))
+                               new HealthModifier(new FlatInteger(10)),
+                               new ItemQuantity(new FlatInteger(4)))
                 );
 
             //TODO: TEST BAG CODE
