@@ -1,6 +1,6 @@
 ﻿namespace GrabBagProject.Models.Items.ItemHolders
 {
-    internal class Shop : ItemHolder
+    internal class Shop : ItemContainer
     {
         protected bool _canSell;
         public bool CanSell

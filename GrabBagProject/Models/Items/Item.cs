@@ -1,8 +1,9 @@
 ﻿using GrabBagProject.Models.Items.ItemModifiers;
+using GrabBagProject.Models.Values.Stats;
 
 namespace GrabBagProject.Models.Items
 {
-    internal class Item
+    internal class Item : StatContainer
     {
         public string Name { get; set; }
         public string Description { get; set; }

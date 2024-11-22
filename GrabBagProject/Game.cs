@@ -5,18 +5,22 @@ using GrabBagProject.Models.Items.ItemModifiers;
 using GrabBagProject.Models.Pieces;
 using GrabBagProject.Models.Units;
 using GrabBagProject.Models.Values.Integer;
+using GrabBagProject.Models.Values.Stats;
 using GrabBagProject.Utilities;
 
 namespace GrabBagProject
 {
-    internal class Game
+    internal class Game : StatContainer
     {
         string? input;
         public static Controller ActiveController = new CombatController();
         public static Player Player = new Player(20);
+        // Singleton Instance.
+        public static Game Instance;
 
         public Game()
         {
+            Instance = this;
             Console.WriteLine("Welcome to Grab Bag Brawl! For a list of input options, press enter without typing anything.");
 
             //TODO: TEST INVENTORY CODE

@@ -1,6 +1,6 @@
 ﻿namespace GrabBagProject.Models.Items.ItemHolders
 {
-    internal class Inventory : ItemHolder
+    internal class Inventory : ItemContainer
     {
         public int Gold { get; set; }
         public Inventory(int capacity) : base(capacity) { }

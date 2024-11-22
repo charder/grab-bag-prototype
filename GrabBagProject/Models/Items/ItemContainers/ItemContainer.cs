@@ -1,11 +1,11 @@
 ﻿namespace GrabBagProject.Models.Items.ItemHolders
 {
-    internal abstract class ItemHolder
+    internal abstract class ItemContainer
     {
         protected List<Item> _items;
         protected int _capacity;
 
-        public ItemHolder(int capacity)
+        public ItemContainer(int capacity)
         {
             _items = new List<Item>();
             _capacity = capacity;

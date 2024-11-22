@@ -2,6 +2,7 @@
 using GrabBagProject.Models.Items;
 using GrabBagProject.Models.Items.ItemModifiers;
 using GrabBagProject.Models.Units;
+using GrabBagProject.Models.Values.Stats;
 using GrabBagProject.Utilities;
 
 namespace GrabBagProject.Controllers
@@ -9,7 +10,7 @@ namespace GrabBagProject.Controllers
     /// <summary>
     /// Base Controller class
     /// </summary>
-    internal class Controller
+    internal class Controller : StatContainer
     {
         public bool Completed = false;
 
