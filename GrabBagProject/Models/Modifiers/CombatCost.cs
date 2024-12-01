@@ -5,18 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GrabBagProject.Models.Items.ItemModifiers
+namespace GrabBagProject.Models.Modifiers
 {
     /// <summary>
     /// Specifies cost of using this item. Only allows use in combat.
     /// </summary>
-    internal class CombatCost : ItemModifier
+    internal class CombatCost : Modifier
     {
-        List<Piece> Costs { get; set; }
+        List<(string, int)> Costs { get; set; }
         int Cooldown { get; set; }
         protected int _currentCooldown = 0;
         public int CurrentCooldown { get { return _currentCooldown; } }
-        public CombatCost(int cooldown = 0, params Piece[] costs)
+        public CombatCost(int cooldown = 0, params (string, int)[] costs)
         {
             Cooldown = cooldown;
             Costs = costs.ToList();
@@ -28,7 +28,7 @@ namespace GrabBagProject.Models.Items.ItemModifiers
             if (Costs.Count > 0)
             {
                 value += "\nCost to Use:";
-                Costs.ForEach(p => value += $"\n{p.Name} - {p.Value}");
+                Costs.ForEach(p => value += $"\n{p.Item1} - {p.Item2}");
             }
             if (Cooldown > 0)
                 value += $"\nCooldown - {Cooldown}";
@@ -38,3 +38,4 @@ namespace GrabBagProject.Models.Items.ItemModifiers
         }
     }
 }
+

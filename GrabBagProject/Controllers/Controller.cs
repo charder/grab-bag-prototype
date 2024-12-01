@@ -1,6 +1,6 @@
-﻿using GrabBagProject.Models.Commands;
+﻿using GrabBagProject.Handlers;
+using GrabBagProject.Models.Commands;
 using GrabBagProject.Models.Items;
-using GrabBagProject.Models.Items.ItemModifiers;
 using GrabBagProject.Models.Units;
 using GrabBagProject.Models.Values.Stats;
 using GrabBagProject.Utilities;
@@ -16,8 +16,9 @@ namespace GrabBagProject.Controllers
 
         public delegate void Call(params string[] args);
 
-        public List<Command> Commands = new List<Command>();
-        public Dictionary<string, Call> Calls = new Dictionary<string, Call>();
+        public List<Command> Commands = new();
+        public Dictionary<string, Call> Calls = new();
+        protected ActionHandler _handler = new();
         public Controller()
         {
             Constructor();
@@ -126,10 +127,12 @@ namespace GrabBagProject.Controllers
             }
         }
 
+        #region ITEM USAGE
         protected virtual bool UseItem(Item item)
         {
-            return false;
+            return _handler.UseItem(item);
         }
+        #endregion
 
         protected void QuitCommand(string[] args)
         {

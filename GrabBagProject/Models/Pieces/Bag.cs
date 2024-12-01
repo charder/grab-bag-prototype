@@ -10,7 +10,8 @@ namespace GrabBagProject.Models.Pieces
     internal class Bag
     {
         public static Dictionary<string, PieceData> AllPieces { get; set; }
-        public Dictionary<Piece, int> PieceDictionary { get; set; }
+        public Dictionary<string, int> FullBag { get; set; }
+        public Dictionary<string, int> CurrentBag { get; set; }
         public int PullsPerTurn { get; set; }
         protected int _count = 0;
         public int Count
@@ -20,70 +21,94 @@ namespace GrabBagProject.Models.Pieces
 
         public Bag(string piecesJsonFile, int pullsPerTurn)
         {
-            PieceDictionary = new Dictionary<Piece, int>();
-
+            // Populate info about Pieces from JSON.
             AllPieces = new Dictionary<string, PieceData>();
             List<PieceData>? pieces = JsonBuilder.FromFile<List<PieceData>>(piecesJsonFile);
             pieces?.ForEach(p => AllPieces.Add(p.Name, p));
+
+            CurrentBag = new();
+            FullBag = new();
+
             PullsPerTurn = pullsPerTurn;
         }
 
         public override string ToString()
         {
             string contents = "Contents of Bag:\n";
-            foreach(KeyValuePair<Piece, int> pair in PieceDictionary)
+            foreach (KeyValuePair<string, int> pair in FullBag)
             {
-                Piece pieceInstance = pair.Key;
-                contents += PieceToString(pieceInstance, pair.Value) + "\n";
+                contents += PieceToString(pair.Key, pair.Value) + "\n";
             }
             return contents;
         }
 
-        public static string PieceToString(Piece piece, int quantity)
+        public static string PieceToString(string name, int quantity)
         {
             PieceData? pieceData;
-            if (AllPieces.TryGetValue(piece.Name, out pieceData))
-                return pieceData.ToString(piece.Value, quantity);
+            if (AllPieces.TryGetValue(name, out pieceData))
+                return pieceData.ToString(quantity);
             return string.Empty;
         }
 
-        /// <summary>
-        /// Add Piece to list of Pieces.
-        /// </summary>
-        /// <returns>If piece already exists in Bag object.</returns>
-        public bool AddPiece(Piece piece, int quantity = 1)
+
+
+        #region ADD/REMOVE PIECES
+        public void FillCurrentBag()
         {
-            _count += quantity;
-            if (PieceDictionary.ContainsKey(piece))
+            CurrentBag.Clear();
+            foreach(KeyValuePair<string, int> pieces in FullBag)
             {
-                PieceDictionary[piece] += quantity;
-                return true;
+                AddPieceToCurrentBag(pieces.Key, pieces.Value);
             }
-            PieceDictionary.Add(piece, quantity);
-            return false;
         }
 
-        /// <summary>
-        /// Remove up to Quantity of Piece from Bag.
-        /// </summary>
-        /// <param name="removeAll">Ignore Piece Quantity and remove all of the specified Piece.</param>
-        /// <returns>If piece existed in Bag object.</returns>
-        public bool RemovePiece(Piece piece, bool removeAll = false)
-        {
-            if (PieceDictionary.ContainsKey(piece))
-            {
-                _count -= removeAll ? PieceDictionary[piece] : 1;
-                PieceDictionary[piece]--;
-                if (PieceDictionary[piece] <= 0 || removeAll)
-                    PieceDictionary.Remove(piece);
-                return true;
-            }
-            return false;
-        }
-
-        public List<Piece> PullPieces(bool bonusPulls = false, int pulls = 0)
+        public List<string> PullPieces(bool bonusPulls = false, int pulls = 0)
         {
             return PullPieces(bonusPulls ? PullsPerTurn + pulls : PullsPerTurn);
+        }
+
+        public void AddPieceToCurrentBag(string name, int quantity = 1)
+        {
+            AddPiece(CurrentBag, name, quantity);
+        }
+
+        public void AddPieceToFullBag(string name, int quantity = 1)
+        {
+            AddPiece(FullBag, name, quantity);
+        }
+
+        protected void AddPiece(Dictionary<string, int> bag, string name, int quantity)
+        {
+            if (bag.ContainsKey(name))
+            {
+                bag[name] += quantity;
+                return;
+            }
+            bag.Add(name, quantity);
+        }
+
+
+        public void RemovePieceFromCurrentBag(string name, int quantity = -1)
+        {
+            RemovePiece(CurrentBag, name, quantity);
+        }
+
+        public void RemovePieceFromFullBag(string name, int quantity = -1)
+        {
+            RemovePiece(FullBag, name, quantity);
+        }
+
+        protected void RemovePiece(Dictionary<string, int> bag, string name, int quantity)
+        {
+            if (bag.TryGetValue(name, out int value))
+            {
+                if (quantity == -1 || value <= quantity)
+                {
+                    bag.Remove(name);
+                    return;
+                }
+                bag[name] -= quantity;
+            }
         }
 
         /// <summary>
@@ -91,14 +116,14 @@ namespace GrabBagProject.Models.Pieces
         /// </summary>
         /// <param name="count">Max number of returned Pieces</param>
         /// <returns>List of pulled Pieces</returns>
-        public List<Piece> PullPieces(int count)
+        public List<string> PullPieces(int count)
         {
-            List<Piece> bagPieces = new List<Piece>();
-            List<Piece> rolledPieces = new List<Piece>();
+            List<string> bagPieces = new();
+            List<string> rolledPieces = new();
 
-            foreach(Piece piece in PieceDictionary.Keys)
+            foreach (string piece in CurrentBag.Keys)
             {
-                int quantity = PieceDictionary[piece];
+                int quantity = CurrentBag[piece];
                 for (int i = 0; i < quantity; i++)
                     bagPieces.Add(piece);
             }
@@ -108,15 +133,16 @@ namespace GrabBagProject.Models.Pieces
             for (int i = 0; i < count; i++)
             {
                 int roll = random.Next(bagPieces.Count);
-                Piece rolledPiece = bagPieces[roll];
+                string rolledPiece = bagPieces[roll];
                 rolledPieces.Add(rolledPiece);
 
                 // Reduce Bag's count of the Piece, and prevent it from being rolled again here.
-                RemovePiece(rolledPiece);
+                RemovePieceFromCurrentBag(rolledPiece, 1);
                 bagPieces.RemoveAt(roll);
             }
 
             return rolledPieces;
         }
+        #endregion
     }
 }

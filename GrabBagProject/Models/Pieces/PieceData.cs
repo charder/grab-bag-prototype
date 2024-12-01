@@ -21,9 +21,9 @@ namespace GrabBagProject.Models.Pieces
             return this;
         }
 
-        public virtual string ToString(int value, int quantity = 1)
+        public virtual string ToString(int quantity = 1)
         {
-            return $"{Name} {value} - {quantity}x - {Description} - {Type.ToString()}";
+            return $"{Name} - {quantity}x - {Description} - {Type.ToString()}";
         }
     }
 
@@ -31,20 +31,7 @@ namespace GrabBagProject.Models.Pieces
     {
         None = 0,
         Resource = 1,
-        Money = 2,
-        Buff = 3,
-        Debuff = 4
-    }
-
-    internal struct Piece
-    {
-        public string Name { get; set; }
-        public int Value { get; set; }
-
-        public Piece(string name, int value)
-        {
-            Name = name;
-            Value = value;
-        }
+        Buff = 2,
+        Debuff = 3
     }
 }

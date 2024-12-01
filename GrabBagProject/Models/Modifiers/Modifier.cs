@@ -1,6 +1,6 @@
-﻿namespace GrabBagProject.Models.Items.ItemModifiers
+﻿namespace GrabBagProject.Models.Modifiers
 {
-    internal abstract class ItemModifier
+    internal abstract class Modifier
     {
         public override string ToString()
         {
@@ -8,3 +8,5 @@
         }
     }
 }
+
+

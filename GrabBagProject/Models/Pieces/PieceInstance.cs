@@ -11,7 +11,7 @@ namespace GrabBagProject.Models.Pieces
     /// </summary>
     internal class PieceInstance
     {
-        public Piece Piece { get; set; }
+        public string Name { get; set; }
         public int Quantity { get; set; }
     }
 }

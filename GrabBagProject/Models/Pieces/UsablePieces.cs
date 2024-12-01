@@ -9,16 +9,10 @@ namespace GrabBagProject.Models.Pieces
 {
     internal class UsablePieces
     {
-        public List<Piece> Pieces { get; set; }
         public Dictionary<string, int> PieceTotals { get; set; }
-        public int Count
-        {
-            get { return Pieces.Count; }
-        }
 
         public UsablePieces()
         {
-            Pieces = new List<Piece>();
             PieceTotals = new Dictionary<string, int>();
         }
 
@@ -35,32 +29,45 @@ namespace GrabBagProject.Models.Pieces
         /// <summary>
         /// Add List of Pieces to existing List.
         /// </summary>
-        public void AddPieces(List<Piece> pieces)
+        public void AddPieces(List<string> pieces)
         {
-            Pieces.AddRange(pieces);
-            foreach(Piece piece in pieces)
+            foreach(string piece in pieces)
+                AddPiece(piece, 1);
+        }
+
+        public void AddPiece(string name, int count = 1)
+        {
+            if (PieceTotals.ContainsKey(name))
+                PieceTotals[name] += count;
+            else
+                PieceTotals.Add(name, count);
+        }
+
+        /// <summary>
+        /// Remove specified Piece counts from PieceTotals
+        /// </summary>
+        public void RemovePieces(params (string, int)[] pieces)
+        {
+            foreach (var pieceCount in pieces)
+                RemovePiece(pieceCount.Item1, pieceCount.Item2);
+        }
+
+        public void RemovePiece(string name, int count = -1)
+        {
+            if (PieceTotals.ContainsKey(name))
             {
-                string name = piece.Name;
-                if (PieceTotals.ContainsKey(name))
-                    PieceTotals[name] += piece.Value;
-                else
-                    PieceTotals.Add(name, piece.Value);
+                if (count < 0 || PieceTotals[name] <= count)
+                {
+                    PieceTotals.Remove(name);
+                    return;
+                }
+                PieceTotals[name] -= count;
             }
         }
 
-
-        /// <summary>
-        /// Remove all Pieces from Piece List.
-        /// </summary>
-        /// <returns>List of removed Pieces.</returns>
-        public List<Piece> RemovePieces()
+        public bool ContainsPieces(string name, int count = 1)
         {
-
-            Piece[] copyArray = new Piece[Pieces.Count];
-            Pieces.CopyTo(copyArray);
-            Pieces.Clear();
-            PieceTotals.Clear();
-            return copyArray.ToList();
+            return PieceTotals.ContainsKey(name) && PieceTotals[name] >= count;
         }
 
     }

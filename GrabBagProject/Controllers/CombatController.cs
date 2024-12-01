@@ -1,4 +1,5 @@
-﻿using GrabBagProject.Models.Commands;
+﻿using GrabBagProject.Handlers;
+using GrabBagProject.Models.Commands;
 using GrabBagProject.Models.Items;
 using GrabBagProject.Models.Items.ItemHolders;
 using GrabBagProject.Models.Pieces;
@@ -11,6 +12,7 @@ namespace GrabBagProject.Controllers
         public UsablePieces PulledPieces { get; set; }
         public override void Constructor()
         {
+            _handler = new CombatHandler();
             PulledPieces = new UsablePieces();
             Command command = new Command(
                 "Pass",
@@ -19,6 +21,7 @@ namespace GrabBagProject.Controllers
                 );
             AddCommand(command, Pass);
             base.Constructor();
+            StartCombat();
         }
 
         public override void ParseInput(params string[] args)
@@ -26,24 +29,23 @@ namespace GrabBagProject.Controllers
             base.ParseInput(args);
         }
 
+        public void StartCombat()
+        {
+            Game.Player.Bag.FillCurrentBag();
+        }
+
         private void Pass(string[] args)
         {
-            ReturnPieces();
             PullTurnPieces();
         }
 
         private void PullTurnPieces()
         {
-            List<Piece> pulls = Game.Player.Bag.PullPieces();
+            List<string> pulls = Game.Player.Bag.PullPieces();
             string message = "Pieces Pulled from Bag:\n";
-            pulls.ForEach(p => message += Bag.PieceToString(p, 1) + "\n");
+            pulls.ForEach(p => message += p + " ");
             PulledPieces.AddPieces(pulls);
             Console.WriteLine(message);
-        }
-
-        private void ReturnPieces()
-        {
-            PulledPieces.RemovePieces().ForEach(p => Game.Player.Bag.AddPiece(p));
         }
     }
 }

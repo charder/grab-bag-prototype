@@ -1,4 +1,4 @@
-﻿using GrabBagProject.Models.Items.ItemModifiers;
+﻿using GrabBagProject.Models.Modifiers;
 using GrabBagProject.Models.Values.Stats;
 
 namespace GrabBagProject.Models.Items
@@ -9,11 +9,11 @@ namespace GrabBagProject.Models.Items
         public string Description { get; set; }
         public int Value { get; set; }
         public bool InInventory { get; set; }
-        public List<ItemModifier> Modifiers = new List<ItemModifier>();
+        public List<Modifier> Modifiers = new List<Modifier>();
 
         public Item() { }
 
-        public Item Build(string name, string description, int value = 0, params ItemModifier[] modifiers)
+        public Item Build(string name, string description, int value = 0, params Modifier[] modifiers)
         {
             Name = name;
             Description = description;
@@ -25,7 +25,7 @@ namespace GrabBagProject.Models.Items
         public override string ToString()
         {
             string builtString = $"{Name} - {Description}";
-            foreach(ItemModifier modifier in Modifiers)
+            foreach(Modifier modifier in Modifiers)
                 builtString += modifier.ToString();
             return builtString += CostString();
         }

@@ -1,7 +1,7 @@
 ﻿using GrabBagProject.Controllers;
 using GrabBagProject.Models.Items;
 using GrabBagProject.Models.Items.ItemHolders;
-using GrabBagProject.Models.Items.ItemModifiers;
+using GrabBagProject.Models.Modifiers;
 using GrabBagProject.Models.Pieces;
 using GrabBagProject.Models.Units;
 using GrabBagProject.Models.Values.Integer;
@@ -13,7 +13,7 @@ namespace GrabBagProject
     internal class Game : StatContainer
     {
         string? input;
-        public static Controller ActiveController = new CombatController();
+        public static Controller ActiveController = new ShopController();
         public static Player Player = new Player(20);
         // Singleton Instance.
         public static Game Instance;
@@ -25,19 +25,20 @@ namespace GrabBagProject
 
             //TODO: TEST INVENTORY CODE
             Inventory inventory = Player.Inventory;
-            inventory.AddItem(new Item().Build("Sword", "Basic sharp blade.", 4,
-                              new CombatCost(1, new Piece("Power", 2)))
+            inventory.AddItem(new Weapon().Build("Sword", "Basic sharp blade.", 4,
+                              new CombatCost(1, ("Power", 2)))
                 );
-            inventory.AddItem(new Item().Build("Wooden Shield", "Weak wooden shield for blocking some damage.", 4));
+            inventory.AddItem(new Shield().Build("Wooden Shield", "Weak wooden shield for blocking some damage.", 4));
             inventory.AddItem(new Item().Build("Healing Potion", "Simple means of regaining health.", 0,
-                               new HealthModifier(new FlatInteger(10)),
-                               new ItemQuantity(new FlatInteger(4)))
+                               new ItemQuantity(4))
                 );
 
             //TODO: TEST BAG CODE
             Bag bag = Player.Bag;
             List<PieceInstance>? pieces = JsonBuilder.FromFile<List<PieceInstance>>(Path.Combine(@"Data", "bag.json"));
-            pieces?.ForEach(p => bag.AddPiece(p.Piece, p.Quantity));
+            pieces?.ForEach(p => bag.AddPieceToFullBag( p.Name, p.Quantity));
+
+            ActiveController = new CombatController();
         }
         public void Loop()
         {

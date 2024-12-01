@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GrabBagProject.Models.Items.ItemModifiers
+namespace GrabBagProject.Models.Modifiers
 {
-    internal class ItemQuantity : ItemModifier
+    internal class ItemQuantity : Modifier
     {
-        protected IIntProperty _quantity;
-        public ItemQuantity(IIntProperty quantity)
+        protected int _quantity;
+        public ItemQuantity(int quantity)
         {
             _quantity = quantity;
         }

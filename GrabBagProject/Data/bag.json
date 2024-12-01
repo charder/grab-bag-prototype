@@ -1,37 +1,22 @@
 [
   {
-    "Piece": {
-      "Name": "Power",
-      "Value": 1
-    },
+    "Name":  "Power",
     "Quantity": 2
   },
   {
-    "Piece": {
-      "Name": "Guard",
-      "Value": 1
-    },
+    "Name": "Guard",
     "Quantity": 2
   },
   {
-    "Piece": {
-      "Name": "Mana",
-      "Value": 1
-    },
+    "Name": "Mana",
     "Quantity": 2
   },
   {
-    "Piece": {
-      "Name": "Agility",
-      "Value": 1
-    },
+    "Name": "Agility",
     "Quantity": 2
   },
   {
-    "Piece": {
-      "Name": "Coin",
-      "Value": 1
-    },
+    "Name":  "Coin",
     "Quantity": 2
   }
 ]
