@@ -1,5 +1,6 @@
 ﻿using GrabBagProject.Actions;
 using GrabBagProject.Models.Pieces;
+using GrabBagProject.Models.Stats;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +31,13 @@ namespace GrabBagProject.Models.Modifiers.Attack
 
         public void OnUse()
         {
-            return;
+            Snapshot snapshot = Game.ActiveController.Snapshot;
+
+            int? damage = snapshot?.Target?.TakeDamage(Value);
+            if (!damage.HasValue) return;
+
+            //TODO: IN PROGRESS
+
         }
 
         #endregion

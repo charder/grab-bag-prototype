@@ -1,4 +1,5 @@
 ﻿using GrabBagProject.Actions;
+using GrabBagProject.Controllers;
 using GrabBagProject.Models.Pieces;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace GrabBagProject.Models.Modifiers
     /// <summary>
     /// Specifies cost of using this item. Only allows use in combat.
     /// </summary>
-    internal class CombatCost : Modifier, IUsable, IOnUse
+    internal class CombatCost : Modifier, IUsable, IPayResources
     {
         List<(string, int)> Costs { get; set; }
         int Cooldown { get; set; }
@@ -42,12 +43,18 @@ namespace GrabBagProject.Models.Modifiers
 
         public bool IsUsable()
         {
-            return false;
+            bool usable = true;
+            UsablePieces? usablePieces = (Game.ActiveController as CombatController)?.PulledPieces;
+            if (usablePieces == null) return false;
+            Costs.ForEach(c => usable = usable && usablePieces.ContainsPieces(c.Item1, c.Item2));
+            return usable;
         }
 
-        public void OnUse()
+        public void PayResources()
         {
-            return;
+            UsablePieces? usablePieces = (Game.ActiveController as CombatController)?.PulledPieces;
+            if (usablePieces == null) return;
+            usablePieces.RemovePieces(Costs.ToArray());
         }
 
         #endregion

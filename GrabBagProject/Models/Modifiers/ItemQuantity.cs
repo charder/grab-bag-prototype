@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GrabBagProject.Models.Modifiers
 {
-    internal class ItemQuantity : Modifier, IUsable, IOnUse
+    internal class ItemQuantity : Modifier, IUsable, IPayResources
     {
         protected int _quantity;
         public ItemQuantity(int quantity)
@@ -23,7 +23,7 @@ namespace GrabBagProject.Models.Modifiers
         }
 
         #region INTERFACES
-        public void OnUse()
+        public void PayResources()
         {
             _quantity--;
         }

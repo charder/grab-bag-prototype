@@ -34,6 +34,9 @@ namespace GrabBagProject.Handlers
             bool usable = IsUsable(modifiers);
             if (!usable) return false;
 
+            // PAY COSTS
+            modifiers.ForEach(m => (m as IPayResources)?.PayResources());
+
             // ON USE
             modifiers.ForEach(m => (m as IOnUse)?.OnUse());
 

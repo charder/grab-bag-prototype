@@ -18,5 +18,27 @@
 
             return value;
         }
+
+        public virtual int TakeDamage(int damage)
+        {
+            int diff = Armor - damage;
+            if (diff >= 0)
+            {
+                Armor = diff;
+                return 0;
+            }
+            damage -= Armor;
+            Armor = 0;
+            return TakePierce(damage);
+        }
+
+        public virtual int TakePierce(int damage)
+        {
+            if (CurrentHealth <= damage)
+                damage = CurrentHealth;
+            CurrentHealth -= damage;
+
+            return damage;
+        }
     }
 }
