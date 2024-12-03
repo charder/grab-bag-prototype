@@ -1,4 +1,5 @@
-﻿using GrabBagProject.Models.Pieces;
+﻿using GrabBagProject.Actions;
+using GrabBagProject.Models.Pieces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace GrabBagProject.Models.Modifiers
     /// <summary>
     /// Specifies cost of using this item. Only allows use in combat.
     /// </summary>
-    internal class CombatCost : Modifier
+    internal class CombatCost : Modifier, IUsable, IOnUse
     {
         List<(string, int)> Costs { get; set; }
         int Cooldown { get; set; }
@@ -36,6 +37,19 @@ namespace GrabBagProject.Models.Modifiers
                 value += $"\nOn Cooldown - {CurrentCooldown}";
             return value;
         }
+
+        #region INTERFACES
+
+        public bool IsUsable()
+        {
+            return false;
+        }
+
+        public void OnUse()
+        {
+            return;
+        }
+
+        #endregion
     }
 }
-

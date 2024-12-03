@@ -1,5 +1,5 @@
 ﻿using GrabBagProject.Models.Modifiers;
-using GrabBagProject.Models.Values.Stats;
+using GrabBagProject.Models.Stats;
 
 namespace GrabBagProject.Models.Items
 {

@@ -3,9 +3,8 @@ using GrabBagProject.Models.Items;
 using GrabBagProject.Models.Items.ItemHolders;
 using GrabBagProject.Models.Modifiers;
 using GrabBagProject.Models.Pieces;
+using GrabBagProject.Models.Stats;
 using GrabBagProject.Models.Units;
-using GrabBagProject.Models.Values.Integer;
-using GrabBagProject.Models.Values.Stats;
 using GrabBagProject.Utilities;
 
 namespace GrabBagProject

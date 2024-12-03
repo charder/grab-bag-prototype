@@ -1,11 +1,10 @@
-﻿using GrabBagProject.Models.Values.Integer;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GrabBagProject.Models.Values.Stats
+namespace GrabBagProject.Models.Stats
 {
     internal class StatContainer
     {
