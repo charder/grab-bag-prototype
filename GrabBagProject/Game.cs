@@ -2,6 +2,8 @@
 using GrabBagProject.Models.Items;
 using GrabBagProject.Models.Items.ItemHolders;
 using GrabBagProject.Models.Modifiers;
+using GrabBagProject.Models.Modifiers.Attack;
+using GrabBagProject.Models.Modifiers.Block;
 using GrabBagProject.Models.Pieces;
 using GrabBagProject.Models.Stats;
 using GrabBagProject.Models.Units;
@@ -25,9 +27,13 @@ namespace GrabBagProject
             //TODO: TEST INVENTORY CODE
             Inventory inventory = Player.Inventory;
             inventory.AddItem(new Weapon().Build("Sword", "Basic sharp blade.", 4,
+                              new Attack(6),
                               new CombatCost(1, ("Power", 2)))
                 );
-            inventory.AddItem(new Shield().Build("Wooden Shield", "Weak wooden shield for blocking some damage.", 4));
+            inventory.AddItem(new Shield().Build("Wooden Shield", "Weak wooden shield for blocking some damage.", 4,
+                              new Block(5),
+                              new CombatCost(1, ("Guard", 2)))
+                );
             inventory.AddItem(new Item().Build("Healing Potion", "Simple means of regaining health.", 0,
                                new ItemQuantity(4))
                 );

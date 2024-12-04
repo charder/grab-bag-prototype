@@ -1,5 +1,8 @@
 ﻿using GrabBagProject.Actions;
+using GrabBagProject.Controllers;
 using GrabBagProject.Models.Pieces;
+using GrabBagProject.Models.Stats;
+using GrabBagProject.Models.Units;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +33,17 @@ namespace GrabBagProject.Models.Modifiers.Pierce
 
         public void OnUse()
         {
-            return;
+            Snapshot snapshot = Game.ActiveController.Snapshot;
+
+            Unit? target = snapshot?.Target;
+            if (target == null) return;
+
+            Console.WriteLine($"\n{snapshot?.User?.Name} Pierce attacking {target.Name} for {Value}.");
+
+            int damage = target.TakePierce(Value);
+            if (damage == 0) return;
+
+            (Game.ActiveController as CombatController)?.UnitDamaged(target, damage);
         }
 
         #endregion

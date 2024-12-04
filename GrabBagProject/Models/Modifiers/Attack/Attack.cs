@@ -1,6 +1,8 @@
 ﻿using GrabBagProject.Actions;
+using GrabBagProject.Controllers;
 using GrabBagProject.Models.Pieces;
 using GrabBagProject.Models.Stats;
+using GrabBagProject.Models.Units;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,11 +35,15 @@ namespace GrabBagProject.Models.Modifiers.Attack
         {
             Snapshot snapshot = Game.ActiveController.Snapshot;
 
-            int? damage = snapshot?.Target?.TakeDamage(Value);
-            if (!damage.HasValue) return;
+            Unit? target = snapshot?.Target;
+            if (target == null) return;
 
-            //TODO: IN PROGRESS
+            Console.WriteLine($"{snapshot?.User?.Name} Attacking {target.Name} for {Value}.");
 
+            int damage = target.TakeDamage(Value);
+            if (damage == 0) return;
+
+            (Game.ActiveController as CombatController)?.UnitDamaged(target, damage);
         }
 
         #endregion

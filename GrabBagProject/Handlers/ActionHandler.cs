@@ -2,6 +2,7 @@
 using GrabBagProject.Models.Items;
 using GrabBagProject.Models.Modifiers;
 using GrabBagProject.Models.Stats;
+using GrabBagProject.Models.Units;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -40,5 +40,12 @@
 
             return damage;
         }
+
+        public virtual int GainArmor(int armor)
+        {
+            //TODO: ADD MAX ARMOR?
+            Armor += armor;
+            return armor;
+        }
     }
 }

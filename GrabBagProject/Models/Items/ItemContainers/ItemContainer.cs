@@ -21,6 +21,11 @@
             return index >= _items.Count ? null : _items[index];
         }
 
+        public List<Item> GetAllItems()
+        {
+            return _items;
+        }
+
         public virtual bool AddItem(Item item)
         {
             if (_items.Count >= _capacity)

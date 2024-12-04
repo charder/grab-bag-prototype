@@ -2,6 +2,6 @@
 {
     internal interface IOnDamaged
     {
-        public abstract void OnDamaged();
+        public abstract void OnDamaged(int value);
     }
 }

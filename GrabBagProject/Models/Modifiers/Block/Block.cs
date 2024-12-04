@@ -1,5 +1,8 @@
 ﻿using GrabBagProject.Actions;
+using GrabBagProject.Controllers;
 using GrabBagProject.Models.Pieces;
+using GrabBagProject.Models.Stats;
+using GrabBagProject.Models.Units;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,6 +33,14 @@ namespace GrabBagProject.Models.Modifiers.Block
 
         public void OnUse()
         {
+            Snapshot snapshot = Game.ActiveController.Snapshot;
+
+            Unit? user = snapshot?.User;
+            if (user == null) return;
+
+            Console.WriteLine($"{user.Name} Blocking for {Value}.");
+
+            int block = user.GainArmor(Value);
             return;
         }
 
