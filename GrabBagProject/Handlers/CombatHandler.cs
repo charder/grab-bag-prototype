@@ -27,6 +27,12 @@ namespace GrabBagProject.Handlers
 
         public override bool UseItem(Item item)
         {
+            //TODO: PASS ALL ENEMIES IN WHEN WE ADD MORE ENEMIES
+            return UseItem(item, _combatController.Enemy);
+        }
+
+        public virtual bool UseItem(Item item, params Unit?[] targets)
+        {
             CombatItem? combatItem = item as CombatItem;
             if (combatItem == null)
                 return base.UseItem(item);
@@ -34,7 +40,9 @@ namespace GrabBagProject.Handlers
             // Defining of Combat action.
             Snapshot snapshot = Game.ActiveController.Snapshot;
             snapshot.User = Game.Player;
-            snapshot.Target = _combatController?.Enemy;
+            //TODO: SNAPSHOT SHOULD HAVE ARRAY OF TARGETS WHEN WE ADD MORE ENEMIES
+            if (targets.Length > 0)
+                snapshot.Target = targets[0];
             snapshot.UsedItem = item;
             snapshot.TemporaryStats = new StatContainer();
 
@@ -52,6 +60,8 @@ namespace GrabBagProject.Handlers
 
             // AFTER USE
             modifiers.ForEach(m => (m as IAfterUse)?.AfterUse());
+
+            return true;
 
             return true;
         }

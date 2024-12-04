@@ -110,7 +110,7 @@ namespace GrabBagProject.Controllers
             Console.WriteLine(Game.Player.Bag.ToString());
         }
 
-        protected void TryUseItem(string[] args)
+        protected virtual void TryUseItem(string[] args)
         {
             if (args.Length == 1)
             {

@@ -72,6 +72,13 @@ namespace GrabBagProject.Controllers
             Console.WriteLine(Enemy.ToString());
         }
 
+        // CombatController handles targeting.
+        protected override void TryUseItem(string[] args)
+        {
+            if (args.Length < 3) base.TryUseItem(args);
+            //TODO: ADD TARGET WHEN WE ADD MORE ENEMIES
+        }
+
         private void PullTurnPieces()
         {
             List<string> pulls = Game.Player.Bag.PullPieces();

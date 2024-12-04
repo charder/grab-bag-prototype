@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace GrabBagProject.Models.Modifiers.Attack
 {
     /// <summary>
-    /// Attack deals damage, which can be blocked by armor.
+    /// Thorns deals damage back to attacker when Attacked (specific actions like Attack and Pierce)
     /// </summary>
     internal class Thorns : Modifier, IBeingAttacked, IAfterUse
     {
