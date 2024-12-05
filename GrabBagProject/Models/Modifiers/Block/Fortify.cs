@@ -1,6 +1,7 @@
 ﻿using GrabBagProject.Actions;
 using GrabBagProject.Models.Modifiers.Base;
 using GrabBagProject.Models.Pieces;
+using GrabBagProject.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,11 +29,16 @@ namespace GrabBagProject.Models.Modifiers.Block
         public void AfterUse()
         {
             _activeStack += Value;
+            Block? block = Utils.FindModifier<Block>(ModifierHolder.Modifiers);
+            if (block == null) return;
+            block.Value += Value;
         }
 
         public void OnTurnEnd()
         {
-            //TODO: REMOVE STACKS FROM BLOCK
+            Block? block = Utils.FindModifier<Block>(ModifierHolder.Modifiers);
+            if (block != null)
+                block.Value -= _activeStack;
             _activeStack = 0;
         }
 

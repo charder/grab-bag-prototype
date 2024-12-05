@@ -35,15 +35,17 @@ namespace GrabBagProject.Models.Modifiers.Pierce
         {
             Snapshot snapshot = Game.ActiveController.Snapshot;
 
-            Unit? target = snapshot?.Target;
-            if (target == null) return;
+            foreach (Unit? target in snapshot.Targets)
+            {
+                if (target == null) continue;
 
-            Console.WriteLine($"\n{snapshot?.User?.Name} Pierce attacking {target.Name} for {Value}.");
+                Console.WriteLine($"\n{snapshot?.User?.Name} Pierce attacking {target.Name} for {Value}.");
 
-            int damage = target.TakePierce(Value);
-            if (damage == 0) return;
+                int damage = target.TakePierce(Value);
+                if (damage == 0) continue;
 
-            (Game.ActiveController as CombatController)?.UnitDamaged(target, damage);
+                (Game.ActiveController as CombatController)?.UnitDamaged(target, damage);
+            }
         }
 
         #endregion

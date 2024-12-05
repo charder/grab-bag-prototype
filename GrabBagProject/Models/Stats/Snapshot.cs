@@ -13,8 +13,8 @@ namespace GrabBagProject.Models.Stats
         public Snapshot() { }
 
         public Unit? User;
-        public Unit? Target;
+        public Unit?[] Targets = [];
         public Item? UsedItem;
-        public StatContainer TemporaryStats = new StatContainer();
+        public StatContainer TemporaryStats = new ();
     }
 }

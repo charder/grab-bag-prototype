@@ -1,6 +1,7 @@
 ﻿using GrabBagProject.Actions;
 using GrabBagProject.Models.Modifiers.Base;
 using GrabBagProject.Models.Pieces;
+using GrabBagProject.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,11 +29,16 @@ namespace GrabBagProject.Models.Modifiers.Pierce
         public void AfterUse()
         {
             _activeStack += Value;
+            Pierce? pierce = Utils.FindModifier<Pierce>(ModifierHolder.Modifiers);
+            if (pierce == null) return;
+            pierce.Value += Value;
         }
 
         public void OnTurnEnd()
         {
-            //TODO: REMOVE STACKS FROM PIERCE
+            Pierce? pierce = Utils.FindModifier<Pierce>(ModifierHolder.Modifiers);
+            if (pierce != null)
+                pierce.Value -= _activeStack;
             _activeStack = 0;
         }
 

@@ -4,14 +4,15 @@ using GrabBagProject.Models.Pieces;
 
 namespace GrabBagProject.Models.Units
 {
-    internal class Enemy : Unit
+    internal class Enemy : Unit, IModifierHolder
     {
         public List<Modifier> Modifiers { get; set; }
         public Enemy(string name, int health, params Modifier[] modifiers)
         {
             Name = name;
             Health = health;
-            Modifiers = modifiers.ToList();
+            Modifiers = [.. modifiers];
+            Modifiers.ForEach(m => m.ModifierHolder = this);
             BuildUnit();
         }
 

@@ -20,7 +20,7 @@ namespace GrabBagProject.Controllers
         public Dictionary<string, Call> Calls = new();
         protected ActionHandler _handler = new();
 
-        public Snapshot Snapshot = new Snapshot();
+        public Snapshot Snapshot = new();
         public Controller()
         {
             Constructor();
@@ -28,7 +28,7 @@ namespace GrabBagProject.Controllers
 
         public virtual void Constructor()
         {
-            Command command = new Command(
+            Command command = new (
                 "Use Item",
                 "Use an item in your inventory.",
                 ["use", "u"]

@@ -13,23 +13,23 @@ namespace GrabBagProject.Controllers
 {
     internal class CombatController : Controller
     {
-        public Enemy Enemy { get; set; }
+        public Enemy[] AllEnemies { get; set; }
         public UsablePieces PulledPieces { get; set; }
         public override void Constructor()
         {
             _handler = new CombatHandler(this);
-            Enemy = new Enemy("Test Enemy", 100,
+            AllEnemies = [ new Enemy("Test Enemy", 100,
                     new Attack(12),
                     new Block(5),
-                    new EnemyCooldown(1));
+                    new EnemyCooldown(1)) ];
             PulledPieces = new UsablePieces();
-            Command command = new Command(
+            Command command = new (
                 "Pass",
                 "When you've finished using your pieces, this ends your turn.",
                 ["pass", "p"]
                 );
             AddCommand(command, Pass);
-            command = new Command(
+            command = new (
                 "Enemies",
                 "Lists all Enemies currently in combat.",
                 ["enemies", "e"]
@@ -69,7 +69,8 @@ namespace GrabBagProject.Controllers
 
         private void Enemies(string[] args)
         {
-            Console.WriteLine(Enemy.ToString());
+            foreach(Enemy enemy in AllEnemies)
+                Console.WriteLine(enemy.ToString());
         }
 
         // CombatController handles targeting.
@@ -97,7 +98,7 @@ namespace GrabBagProject.Controllers
 
         public virtual void EnemyActions()
         {
-            (_handler as CombatHandler)?.EnemyActions(Enemy);
+            (_handler as CombatHandler)?.EnemyActions(AllEnemies);
         }
 
         public virtual void TurnEnded()

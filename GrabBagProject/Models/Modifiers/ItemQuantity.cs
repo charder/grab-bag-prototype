@@ -19,7 +19,7 @@ namespace GrabBagProject.Models.Modifiers
         public override string ToString()
         {
             string value = base.ToString();
-            return value += $"\nQuantity: {_quantity.ToString()}";
+            return value += $"\nQuantity: {_quantity}";
         }
 
         #region INTERFACES

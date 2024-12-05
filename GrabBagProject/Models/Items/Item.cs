@@ -3,13 +3,13 @@ using GrabBagProject.Models.Stats;
 
 namespace GrabBagProject.Models.Items
 {
-    internal class Item : StatContainer
+    internal class Item : StatContainer, IModifierHolder
     {
         public string Name { get; set; }
         public string Description { get; set; }
         public int Value { get; set; }
         public bool InInventory { get; set; }
-        public List<Modifier> Modifiers = new List<Modifier>();
+        public List<Modifier> Modifiers { get; set; }
 
         public Item() { }
 
@@ -18,7 +18,8 @@ namespace GrabBagProject.Models.Items
             Name = name;
             Description = description;
             Value = value;
-            Modifiers.AddRange(modifiers);
+            Modifiers = [.. modifiers];
+            Modifiers.ForEach(m => m.ModifierHolder = this);
             return this;
         }
 

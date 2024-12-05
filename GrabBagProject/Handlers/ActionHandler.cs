@@ -21,7 +21,7 @@ namespace GrabBagProject.Handlers
             // Prepare Snapshot of this Action.
             Snapshot snapshot = Game.ActiveController.Snapshot;
             snapshot.User = Game.Player;
-            snapshot.Target = null;
+            snapshot.Targets = [];
             snapshot.UsedItem = item;
             snapshot.TemporaryStats = new StatContainer();
 

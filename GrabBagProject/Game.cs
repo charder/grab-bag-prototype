@@ -28,7 +28,7 @@ namespace GrabBagProject
             Inventory inventory = Player.Inventory;
             inventory.AddItem(new Weapon().Build("Sword", "Basic sharp blade.", 4,
                               new Attack(6),
-                              new CombatCost(1, ("Power", 2)))
+                              new CombatCost(1))
                 );
             inventory.AddItem(new Shield().Build("Wooden Shield", "Weak wooden shield for blocking some damage.", 4,
                               new Block(5),

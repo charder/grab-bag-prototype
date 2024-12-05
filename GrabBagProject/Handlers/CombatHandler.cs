@@ -3,6 +3,7 @@ using GrabBagProject.Controllers;
 using GrabBagProject.Models.Items;
 using GrabBagProject.Models.Items.ItemHolders;
 using GrabBagProject.Models.Modifiers;
+using GrabBagProject.Models.Modifiers.Area;
 using GrabBagProject.Models.Stats;
 using GrabBagProject.Models.Units;
 using System;
@@ -27,8 +28,31 @@ namespace GrabBagProject.Handlers
 
         public override bool UseItem(Item item)
         {
-            //TODO: PASS ALL ENEMIES IN WHEN WE ADD MORE ENEMIES
-            return UseItem(item, _combatController.Enemy);
+            List<Modifier> modifiers = item.Modifiers;
+
+            Enemy[] enemies = _combatController.AllEnemies;
+
+            // If we require a target, prevent us from proceeding without one.
+            if (enemies.Length > 1)
+            {
+                bool targetable = false;
+
+                foreach (var mod in modifiers)
+                {
+                    targetable = targetable || mod is ITargetable;
+
+                    // Cleave ignores Targetable ruling
+                    if (mod is Cleave)
+                    {
+                        targetable = false;
+                        break;
+                    }
+                }
+                if (targetable)
+                    return false;
+            }
+
+            return UseItem(item, _combatController.AllEnemies);
         }
 
         public virtual bool UseItem(Item item, params Unit?[] targets)
@@ -40,9 +64,7 @@ namespace GrabBagProject.Handlers
             // Defining of Combat action.
             Snapshot snapshot = Game.ActiveController.Snapshot;
             snapshot.User = Game.Player;
-            //TODO: SNAPSHOT SHOULD HAVE ARRAY OF TARGETS WHEN WE ADD MORE ENEMIES
-            if (targets.Length > 0)
-                snapshot.Target = targets[0];
+            snapshot.Targets = targets;
             snapshot.UsedItem = item;
             snapshot.TemporaryStats = new StatContainer();
 
@@ -62,8 +84,6 @@ namespace GrabBagProject.Handlers
             modifiers.ForEach(m => (m as IAfterUse)?.AfterUse());
 
             return true;
-
-            return true;
         }
 
         public virtual void EnemyActions(params Enemy[] enemies)
@@ -76,7 +96,7 @@ namespace GrabBagProject.Handlers
             // Defining of Combat action.
             Snapshot snapshot = Game.ActiveController.Snapshot;
             snapshot.User = enemy;
-            snapshot.Target = Game.Player;
+            snapshot.Targets = [Game.Player];
             snapshot.UsedItem = null;
             snapshot.TemporaryStats = new StatContainer();
 
@@ -122,8 +142,12 @@ namespace GrabBagProject.Handlers
             List<Item> allItems = player.Inventory.GetAllItems();
             allItems.ForEach(i => i.Modifiers.ForEach(m => (m as IOnTurnEnd)?.OnTurnEnd()));
 
-            Enemy enemy = _combatController.Enemy;
-            enemy.Modifiers.ForEach(m => (m as IOnTurnEnd)?.OnTurnEnd());
+            Enemy[] enemies = _combatController.AllEnemies;
+            foreach(Enemy enemy in enemies)
+            {
+                enemy.Modifiers.ForEach(m => (m as IOnTurnEnd)?.OnTurnEnd());
+            }
+
         }
     }
 }
