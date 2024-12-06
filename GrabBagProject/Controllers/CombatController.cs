@@ -18,10 +18,14 @@ namespace GrabBagProject.Controllers
         public override void Constructor()
         {
             _handler = new CombatHandler(this);
-            AllEnemies = [ new Enemy("Test Enemy", 100,
+            AllEnemies = [ 
+                new Enemy("Ogre", 60,
                     new Attack(12),
                     new Block(5),
-                    new EnemyCooldown(1)) ];
+                    new EnemyCooldown(1)),
+                new Enemy("Goblin", 24,
+                    new Attack(6))
+            ];
             PulledPieces = new UsablePieces();
             Command command = new (
                 "Pass",
@@ -69,15 +73,43 @@ namespace GrabBagProject.Controllers
 
         private void Enemies(string[] args)
         {
-            foreach(Enemy enemy in AllEnemies)
-                Console.WriteLine(enemy.ToString());
+            for (int i = 0; i < AllEnemies.Length; i++)
+            {
+                Enemy enemy = AllEnemies[i];
+                Console.WriteLine($"{i}. " + enemy.ToString());
+            }
         }
 
         // CombatController handles targeting.
         protected override void TryUseItem(string[] args)
         {
-            if (args.Length < 3) base.TryUseItem(args);
-            //TODO: ADD TARGET WHEN WE ADD MORE ENEMIES
+            if (args.Length < 3)
+            {
+                base.TryUseItem(args);
+                return;
+            }
+            int enemyTarget;
+            if (int.TryParse(args[2], out enemyTarget))
+            {
+                if (AllEnemies.Length > enemyTarget)
+                {
+                    Enemy target = AllEnemies[enemyTarget];
+                    if (int.TryParse(args[1], out int value))
+                    {
+                        Item? item = Game.Player.Inventory.GetItem(value);
+                        if (item != null)
+                        {
+                            CombatHandler? combatHandler = _handler as CombatHandler;
+                            if (combatHandler == null || !combatHandler.UseItem(item, target))
+                                Console.WriteLine($"Cannot use {item.Name} at this time.");
+                        }
+                    }
+                }
+                else
+                    Console.WriteLine($"{enemyTarget} is not a valid Enemy target.");
+            }
+            else
+                Console.WriteLine($"{args[2]} is not a valid Enemy target.");
         }
 
         private void PullTurnPieces()
