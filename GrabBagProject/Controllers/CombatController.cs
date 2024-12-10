@@ -13,11 +13,16 @@ namespace GrabBagProject.Controllers
 {
     internal class CombatController : Controller
     {
+        protected Enemy _mainEnemy { get; set; }
         public Enemy[] AllEnemies { get; set; }
         public UsablePieces PulledPieces { get; set; }
         public override void Constructor()
         {
             _handler = new CombatHandler(this);
+
+            _mainEnemy = new Enemy("Ogre", 60,
+                             new Attack(20));
+
             AllEnemies = [ 
                 new Enemy("Ogre", 60,
                     new Attack(12),

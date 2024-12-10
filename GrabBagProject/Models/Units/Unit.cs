@@ -6,6 +6,7 @@
         public int CurrentHealth { get; set; }
         public int Health { get; set; }
         public int Armor { get; set; }
+        public bool IsDead { get { return CurrentHealth <= 0; } }
 
         public void BuildUnit()
         {

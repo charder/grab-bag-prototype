@@ -115,21 +115,30 @@ namespace GrabBagProject.Handlers
 
         public virtual void UnitDamaged(Unit unit, int value)
         {
-            // When Player is damaged, run OnDamaged check for every item in their Inventory.
+            // When Player is damaged, run OnDamaged for every item in their Inventory.
             Player? player = unit as Player;
             if (player != null)
             {
                 List<Item> allItems = player.Inventory.GetAllItems();
                 allItems.ForEach(i => i.Modifiers.ForEach(m => (m as IOnDamaged)?.OnDamaged(value)));
+                if (player.IsDead)
+                {
+                    Game.ActiveController = new GameEndController();
+                    Console.WriteLine("You have died. Game Over!");
+                }
                 return;
             }
 
-            // When Enemy is damaged, run OnDamaged check on their modifiers.
+            // When Enemy is damaged, run OnDamaged on their modifiers, and check for death.
             Enemy? enemy = unit as Enemy;
             if (enemy != null)
             {
                 List<Modifier> modifiers = enemy.Modifiers;
                 modifiers.ForEach(m => (m as IOnDamaged)?.OnDamaged(value));
+                if (enemy.IsDead)
+                {
+                    modifiers.ForEach(m => (m as IOnDeath)?.OnDeath());
+                }
                 return;
             }
         }

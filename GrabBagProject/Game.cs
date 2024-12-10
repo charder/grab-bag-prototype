@@ -15,7 +15,7 @@ namespace GrabBagProject
     {
         string? input;
         public static Controller ActiveController = new ShopController();
-        public static Player Player = new Player(20);
+        public static Player Player;
         // Singleton Instance.
         public static Game Instance;
 
@@ -25,6 +25,7 @@ namespace GrabBagProject
             Console.WriteLine("Welcome to Grab Bag Brawl! For a list of input options, press enter without typing anything.");
 
             //TODO: TEST INVENTORY CODE
+            Player = new Player(20);
             Inventory inventory = Player.Inventory;
             inventory.AddItem(new Weapon().Build("Sword", "Basic sharp blade.", 4,
                               new Attack(6),
