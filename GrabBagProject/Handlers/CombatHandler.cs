@@ -150,6 +150,21 @@ namespace GrabBagProject.Handlers
             }
         }
 
+        public virtual void StartCombat()
+        {
+            Player player = Game.Player;
+
+            // ON COMBAT START - PLAYER THEN ENEMIES
+            List<Item> allItems = player.Inventory.GetAllItems();
+            allItems.ForEach(i => i.Modifiers.ForEach(m => (m as IOnCombatStart)?.OnCombatStart()));
+
+            var enemies = _combatController.AllEnemies;
+            foreach (Enemy enemy in enemies)
+            {
+                enemy.Modifiers.ForEach(m => (m as IOnCombatStart)?.OnCombatStart());
+            }
+        }
+
         public virtual void TurnEnded()
         {
             Player player = Game.Player;
@@ -163,7 +178,6 @@ namespace GrabBagProject.Handlers
             {
                 enemy.Modifiers.ForEach(m => (m as IOnTurnEnd)?.OnTurnEnd());
             }
-
         }
     }
 }

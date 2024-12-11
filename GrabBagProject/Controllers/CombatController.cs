@@ -5,6 +5,7 @@ using GrabBagProject.Models.Items.ItemHolders;
 using GrabBagProject.Models.Modifiers;
 using GrabBagProject.Models.Modifiers.Attack;
 using GrabBagProject.Models.Modifiers.Block;
+using GrabBagProject.Models.Modifiers.Cooldown;
 using GrabBagProject.Models.Modifiers.Pierce;
 using GrabBagProject.Models.Pieces;
 using GrabBagProject.Models.Stats;
@@ -15,6 +16,7 @@ namespace GrabBagProject.Controllers
     internal class CombatController : Controller
     {
         protected Enemy _mainEnemy { get; set; }
+        public List<Enemy> AllEnemies { get; set; }
         public List<Enemy> ActiveEnemies { get; set; }
         public UsablePieces PulledPieces { get; set; }
         public override void Constructor()
@@ -24,15 +26,20 @@ namespace GrabBagProject.Controllers
             _mainEnemy = new Enemy("Pack Goblin", 30,
                              new Attack(5));
 
-            ActiveEnemies = [
+            //TODO: SEPARATE AllEnemies AND ActiveEnemies LOGIC.
+            AllEnemies = [
                 _mainEnemy,
                 new Enemy("Goblin", 10,
                     new Attack(3)),
                 new Enemy("Goblin", 10,
                     new Attack(3)),
                 new Enemy("Spear Goblin", 12,
-                    new Pierce(2)),
+                    new Pierce(2),
+                    new Sluggish(),
+                    new EnemyCooldown(1))
             ];
+            ActiveEnemies = AllEnemies;
+
             PulledPieces = new UsablePieces();
             Command command = new (
                 "Pass",
@@ -58,6 +65,9 @@ namespace GrabBagProject.Controllers
         public void StartCombat()
         {
             Game.Player.Bag.FillCurrentBag();
+            PullTurnPieces();
+            (_handler as CombatHandler)?.StartCombat();
+            // TODO: MOVE STARTING ENEMIES INTO ActiveEnemies.
         }
 
         public void SpendPieces(params (string, int)[] pieces)

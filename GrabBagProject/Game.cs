@@ -4,6 +4,7 @@ using GrabBagProject.Models.Items.ItemHolders;
 using GrabBagProject.Models.Modifiers;
 using GrabBagProject.Models.Modifiers.Attack;
 using GrabBagProject.Models.Modifiers.Block;
+using GrabBagProject.Models.Modifiers.Cooldown;
 using GrabBagProject.Models.Pieces;
 using GrabBagProject.Models.Stats;
 using GrabBagProject.Models.Units;
@@ -34,6 +35,11 @@ namespace GrabBagProject
             inventory.AddItem(new Shield().Build("Wooden Shield", "Weak wooden shield for blocking some damage.", 4,
                               new Block(5),
                               new CombatCost(1, ("Guard", 2)))
+                );
+            inventory.AddItem(new Weapon().Build("Great Axe", "Very large axe.", 10,
+                              new Attack(20),
+                              new Sluggish(),
+                              new CombatCost(3, ("Power", 4)))
                 );
             inventory.AddItem(new Item().Build("Healing Potion", "Simple means of regaining health.", 0,
                                new ItemQuantity(4))

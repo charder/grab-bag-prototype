@@ -39,6 +39,11 @@ namespace GrabBagProject.Models.Modifiers
             return value;
         }
 
+        public void GoOnCooldown()
+        {
+            _currentCooldown = Cooldown;
+        }
+
         #region INTERFACES
 
         public bool IsUsable()
@@ -62,7 +67,7 @@ namespace GrabBagProject.Models.Modifiers
 
         public void AfterUse()
         {
-            _currentCooldown = Cooldown;
+            GoOnCooldown();
         }
 
         public void OnTurnEnd()
