@@ -30,10 +30,8 @@ namespace GrabBagProject.Handlers
         {
             List<Modifier> modifiers = item.Modifiers;
 
-            Enemy[] enemies = _combatController.AllEnemies;
-
             // If we require a target, prevent us from proceeding without one.
-            if (enemies.Length > 1)
+            if (_combatController.ActiveEnemies.Count > 1)
             {
                 bool targetable = false;
 
@@ -52,7 +50,7 @@ namespace GrabBagProject.Handlers
                     return false;
             }
 
-            return UseItem(item, _combatController.AllEnemies);
+            return UseItem(item, _combatController.ActiveEnemies.ToArray());
         }
 
         public virtual bool UseItem(Item item, params Unit?[] targets)
@@ -93,6 +91,8 @@ namespace GrabBagProject.Handlers
 
         protected virtual void EnemyAction(Enemy enemy)
         {
+            if (enemy.IsDead) return;
+
             // Defining of Combat action.
             Snapshot snapshot = Game.ActiveController.Snapshot;
             snapshot.User = enemy;
@@ -138,7 +138,14 @@ namespace GrabBagProject.Handlers
                 if (enemy.IsDead)
                 {
                     modifiers.ForEach(m => (m as IOnDeath)?.OnDeath());
+
+                    // Check against item OnKill effects.
+                    Snapshot snapshot = Game.ActiveController.Snapshot;
+                    Item? usedItem = snapshot.UsedItem;
+                    usedItem?.Modifiers?.ForEach(m => (m as IOnKill)?.OnKill());
+                    _combatController.EnemyDeath(enemy);
                 }
+                
                 return;
             }
         }
@@ -151,7 +158,7 @@ namespace GrabBagProject.Handlers
             List<Item> allItems = player.Inventory.GetAllItems();
             allItems.ForEach(i => i.Modifiers.ForEach(m => (m as IOnTurnEnd)?.OnTurnEnd()));
 
-            Enemy[] enemies = _combatController.AllEnemies;
+            var enemies = _combatController.ActiveEnemies;
             foreach(Enemy enemy in enemies)
             {
                 enemy.Modifiers.ForEach(m => (m as IOnTurnEnd)?.OnTurnEnd());

@@ -5,6 +5,7 @@ using GrabBagProject.Models.Items.ItemHolders;
 using GrabBagProject.Models.Modifiers;
 using GrabBagProject.Models.Modifiers.Attack;
 using GrabBagProject.Models.Modifiers.Block;
+using GrabBagProject.Models.Modifiers.Pierce;
 using GrabBagProject.Models.Pieces;
 using GrabBagProject.Models.Stats;
 using GrabBagProject.Models.Units;
@@ -14,22 +15,23 @@ namespace GrabBagProject.Controllers
     internal class CombatController : Controller
     {
         protected Enemy _mainEnemy { get; set; }
-        public Enemy[] AllEnemies { get; set; }
+        public List<Enemy> ActiveEnemies { get; set; }
         public UsablePieces PulledPieces { get; set; }
         public override void Constructor()
         {
             _handler = new CombatHandler(this);
 
-            _mainEnemy = new Enemy("Ogre", 60,
-                             new Attack(20));
+            _mainEnemy = new Enemy("Pack Goblin", 30,
+                             new Attack(5));
 
-            AllEnemies = [ 
-                new Enemy("Ogre", 60,
-                    new Attack(12),
-                    new Block(5),
-                    new EnemyCooldown(1)),
-                new Enemy("Goblin", 24,
-                    new Attack(6))
+            ActiveEnemies = [
+                _mainEnemy,
+                new Enemy("Goblin", 10,
+                    new Attack(3)),
+                new Enemy("Goblin", 10,
+                    new Attack(3)),
+                new Enemy("Spear Goblin", 12,
+                    new Pierce(2)),
             ];
             PulledPieces = new UsablePieces();
             Command command = new (
@@ -78,9 +80,9 @@ namespace GrabBagProject.Controllers
 
         private void Enemies(string[] args)
         {
-            for (int i = 0; i < AllEnemies.Length; i++)
+            for (int i = 0; i < ActiveEnemies.Count; i++)
             {
-                Enemy enemy = AllEnemies[i];
+                Enemy enemy = ActiveEnemies[i];
                 Console.WriteLine($"{i}. " + enemy.ToString());
             }
         }
@@ -96,9 +98,9 @@ namespace GrabBagProject.Controllers
             int enemyTarget;
             if (int.TryParse(args[2], out enemyTarget))
             {
-                if (AllEnemies.Length > enemyTarget)
+                if (ActiveEnemies.Count > enemyTarget)
                 {
-                    Enemy target = AllEnemies[enemyTarget];
+                    Enemy target = ActiveEnemies[enemyTarget];
                     if (int.TryParse(args[1], out int value))
                     {
                         Item? item = Game.Player.Inventory.GetItem(value);
@@ -135,7 +137,19 @@ namespace GrabBagProject.Controllers
 
         public virtual void EnemyActions()
         {
-            (_handler as CombatHandler)?.EnemyActions(AllEnemies);
+            (_handler as CombatHandler)?.EnemyActions(ActiveEnemies.ToArray());
+        }
+
+        public virtual void EnemyDeath(Enemy enemy)
+        {
+            Console.WriteLine($"{enemy.Name} has been killed!");
+            // END COMBAT
+            if (enemy == _mainEnemy)
+            {
+                Game.ActiveController = new GameEndController();
+                Console.WriteLine("Main enemy defeated. You win!");
+            }
+            ActiveEnemies.Remove(enemy);
         }
 
         public virtual void TurnEnded()
