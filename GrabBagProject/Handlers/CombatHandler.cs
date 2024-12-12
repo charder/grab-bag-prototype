@@ -158,7 +158,7 @@ namespace GrabBagProject.Handlers
             List<Item> allItems = player.Inventory.GetAllItems();
             allItems.ForEach(i => i.Modifiers.ForEach(m => (m as IOnCombatStart)?.OnCombatStart()));
 
-            var enemies = _combatController.AllEnemies;
+            var enemies = _combatController.EnemyPool;
             foreach (Enemy enemy in enemies)
             {
                 enemy.Modifiers.ForEach(m => (m as IOnCombatStart)?.OnCombatStart());

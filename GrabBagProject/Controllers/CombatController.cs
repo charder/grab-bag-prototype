@@ -16,31 +16,34 @@ namespace GrabBagProject.Controllers
     internal class CombatController : Controller
     {
         protected Enemy _mainEnemy { get; set; }
-        public List<Enemy> AllEnemies { get; set; }
-        public List<Enemy> ActiveEnemies { get; set; }
-        public UsablePieces PulledPieces { get; set; }
+        public List<Enemy> EnemyPool { get; set; } = new();
+        public List<Enemy> UsedEnemyPool { get; set; } = new();
+        public List<Enemy> ActiveEnemies { get; set; } = new();
+        public UsablePieces PulledPieces { get; set; } = new();
         public override void Constructor()
         {
             _handler = new CombatHandler(this);
 
             _mainEnemy = new Enemy("Pack Goblin", 30,
-                             new Attack(5));
+                             new Attack(0));
 
             //TODO: SEPARATE AllEnemies AND ActiveEnemies LOGIC.
-            AllEnemies = [
+            EnemyPool = [
                 _mainEnemy,
-                new Enemy("Goblin", 10,
-                    new Attack(3)),
-                new Enemy("Goblin", 10,
-                    new Attack(3)),
+                new Enemy("Goblin 1", 10,
+                    new Attack(0)),
+                new Enemy("Goblin 2", 10,
+                    new Attack(0)),
+                new Enemy("Goblin 3", 10,
+                    new Attack(0)),
+                new Enemy("Goblin 4", 10,
+                    new Attack(0)),
                 new Enemy("Spear Goblin", 12,
-                    new Pierce(2),
+                    new Pierce(0),
                     new Sluggish(),
-                    new EnemyCooldown(1))
-            ];
-            ActiveEnemies = AllEnemies;
+                    new EnemyCooldown(1)),
 
-            PulledPieces = new UsablePieces();
+            ];
             Command command = new (
                 "Pass",
                 "When you've finished using your pieces, this ends your turn.",
@@ -67,7 +70,8 @@ namespace GrabBagProject.Controllers
             Game.Player.Bag.FillCurrentBag();
             PullTurnPieces();
             (_handler as CombatHandler)?.StartCombat();
-            // TODO: MOVE STARTING ENEMIES INTO ActiveEnemies.
+            EnemyPool.Remove(_mainEnemy);
+            CycleEnemies();
         }
 
         public void SpendPieces(params (string, int)[] pieces)
@@ -84,6 +88,8 @@ namespace GrabBagProject.Controllers
             EnemyActions();
 
             TurnEnded();
+
+            CycleEnemies();
 
             PullTurnPieces();
         }
@@ -127,6 +133,36 @@ namespace GrabBagProject.Controllers
             }
             else
                 Console.WriteLine($"{args[2]} is not a valid Enemy target.");
+        }
+
+        private void CycleEnemies()
+        {
+            for (int i = 1; i < ActiveEnemies.Count; i++)
+            {
+                Enemy enemy = ActiveEnemies[i];
+                UsedEnemyPool.Add(enemy);
+            }
+            var pulls = new List<Enemy>() { _mainEnemy };
+            PullEnemies(2, ref pulls);
+            ActiveEnemies = pulls;
+        }
+
+        private void PullEnemies(int count, ref List<Enemy> pulls)
+        {
+            if (count == 0) return;
+
+            if (EnemyPool.Count == 0)
+            {
+                if (UsedEnemyPool.Count == 0) return;
+                EnemyPool = UsedEnemyPool;
+                UsedEnemyPool = new();
+            }
+
+            Random random = new Random();
+            int index = random.Next(EnemyPool.Count);
+            pulls.Add(EnemyPool[index]);
+            EnemyPool.RemoveAt(index);
+            PullEnemies(--count, ref pulls);
         }
 
         private void PullTurnPieces()
