@@ -15,7 +15,7 @@ namespace GrabBagProject
     internal class Game : StatContainer
     {
         string? input;
-        public static Controller ActiveController = new ShopController();
+        public static Controller ActiveController;
         public static Player Player;
         // Singleton Instance.
         public static Game Instance;
@@ -50,8 +50,9 @@ namespace GrabBagProject
             List<PieceInstance>? pieces = JsonBuilder.FromFile<List<PieceInstance>>(Path.Combine(@"Data", "bag.json"));
             pieces?.ForEach(p => bag.AddPieceToFullBag( p.Name, p.Quantity));
 
-            ActiveController = new CombatController();
+            ActiveController = new ShopController();
         }
+
         public void Loop()
         {
             if (!ActiveController.Completed)

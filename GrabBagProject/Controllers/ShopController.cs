@@ -1,4 +1,5 @@
-﻿using GrabBagProject.Models.Commands;
+﻿using GrabBagProject.Data;
+using GrabBagProject.Models.Commands;
 using GrabBagProject.Models.Items;
 using GrabBagProject.Models.Items.ItemHolders;
 using GrabBagProject.Utilities;
@@ -7,11 +8,17 @@ namespace GrabBagProject.Controllers
 {
     internal class ShopController : Controller
     {
+        protected ShopItems _shopData = new();
         protected Shop _shop = new Shop(999);
         public override void Constructor()
         {
-            _shop.AddItem(new Item().Build("Iron Shield", "A much stronger shield, able to block more damage.", 10));
-            _shop.AddItem(new Item().Build("Bow & Arrow", "A ranged option, able to strike foes from a distance.", 6));
+            // Fill Shop.
+            ICollection<Item> items = _shopData.GetShopItems();
+            items.ToList().ForEach(item =>
+            {
+                _shop.AddItem(item);
+            });
+
             Command command = new Command(
                 "Shop",
                 "List current shop inventory.",
@@ -129,7 +136,8 @@ namespace GrabBagProject.Controllers
 
         private void Leave(string[] args)
         {
-
+            Console.WriteLine("Left shop. Entering battle now!");
+            Game.ActiveController = new CombatController();
         }
     }
 }

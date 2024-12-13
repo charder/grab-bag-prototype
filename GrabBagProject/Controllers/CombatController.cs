@@ -24,7 +24,7 @@ namespace GrabBagProject.Controllers
         {
             _handler = new CombatHandler(this);
 
-            _mainEnemy = new Enemy("Pack Goblin", 30,
+            _mainEnemy = new Enemy("Pack Goblin", 1,
                              new Attack(0));
 
             //TODO: SEPARATE AllEnemies AND ActiveEnemies LOGIC.
