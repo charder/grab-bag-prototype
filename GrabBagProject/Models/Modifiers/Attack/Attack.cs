@@ -14,7 +14,7 @@ namespace GrabBagProject.Models.Modifiers.Attack
     /// <summary>
     /// Attack deals damage, which can be blocked by armor.
     /// </summary>
-    internal class Attack : Modifier, IOnUse, ITargetable
+    internal class Attack : Modifier, IAmAttack, IOnUse, ITargetable
     {
         public int Value { get; set; }
         public Attack(int value)

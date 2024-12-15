@@ -6,6 +6,7 @@ using GrabBagProject.Models.Modifiers;
 using GrabBagProject.Models.Modifiers.Area;
 using GrabBagProject.Models.Stats;
 using GrabBagProject.Models.Units;
+using GrabBagProject.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -78,6 +79,18 @@ namespace GrabBagProject.Handlers
             // ON USE
             modifiers.ForEach(m => (m as IOnUse)?.OnUse());
 
+            // ATTACK CHECK
+            if (modifiers.Any(m => (m as IAmAttack) != null))
+            {
+                foreach (Unit? target in targets)
+                {
+                    Enemy? enemy = target as Enemy;
+                    if (enemy == null) continue;
+
+                    enemy.Modifiers.ForEach(m => (m as IBeingAttacked)?.BeingAttacked());
+                }
+            }
+
             // AFTER USE
             modifiers.ForEach(m => (m as IAfterUse)?.AfterUse());
 
@@ -86,6 +99,7 @@ namespace GrabBagProject.Handlers
 
         public virtual void EnemyActions(params Enemy[] enemies)
         {
+            foreach (Enemy enemy in enemies) enemy.ClearArmor();
             foreach (Enemy enemy in enemies) EnemyAction(enemy);
         }
 
@@ -108,6 +122,15 @@ namespace GrabBagProject.Handlers
 
             // ON USE
             modifiers.ForEach(m => (m as IOnUse)?.OnUse());
+
+            // ATTACK CHECK
+            if (modifiers.Any(m => (m as IAmAttack) != null))
+            {
+                Player? player = Game.Player;
+                List<Item> allItems = player.Inventory.GetAllItems();
+                allItems.ForEach(i => i.Modifiers.ForEach(m => (m as IBeingAttacked)?.BeingAttacked()));
+                return;
+            }
 
             // AFTER USE
             modifiers.ForEach(m => (m as IAfterUse)?.AfterUse());
@@ -162,6 +185,22 @@ namespace GrabBagProject.Handlers
             foreach (Enemy enemy in enemies)
             {
                 enemy.Modifiers.ForEach(m => (m as IOnCombatStart)?.OnCombatStart());
+            }
+        }
+
+        public virtual void TurnStart()
+        {
+            Player player = Game.Player;
+            player.ClearArmor();
+
+            // ON TURN START - PLAYER THEN ENEMIES
+            List<Item> allItems = player.Inventory.GetAllItems();
+            allItems.ForEach(i => i.Modifiers.ForEach(m => (m as IOnTurnEnd)?.OnTurnEnd()));
+
+            var enemies = _combatController.ActiveEnemies;
+            foreach (Enemy enemy in enemies)
+            {
+                enemy.Modifiers.ForEach(m => (m as IOnTurnEnd)?.OnTurnEnd());
             }
         }
 

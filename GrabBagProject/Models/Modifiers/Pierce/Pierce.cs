@@ -14,7 +14,7 @@ namespace GrabBagProject.Models.Modifiers.Pierce
     /// <summary>
     /// Pierce deals damage, ignoring armor.
     /// </summary>
-    internal class Pierce : Modifier, IOnUse, ITargetable
+    internal class Pierce : Modifier, IAmAttack, IOnUse, ITargetable
     {
         public int Value { get; set; }
         public Pierce(int value)

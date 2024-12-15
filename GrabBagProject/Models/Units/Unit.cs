@@ -20,6 +20,11 @@
             return value;
         }
 
+        public virtual void ClearArmor()
+        {
+            Armor = 0;
+        }
+
         public virtual int TakeDamage(int damage)
         {
             int diff = Armor - damage;
@@ -42,9 +47,15 @@
             return damage;
         }
 
+        public virtual int GainHealth(int health)
+        {
+            int add = Math.Min(Health - CurrentHealth, health);
+            CurrentHealth += add;
+            return add;
+        }
+
         public virtual int GainArmor(int armor)
         {
-            //TODO: ADD MAX ARMOR?
             Armor += armor;
             return armor;
         }

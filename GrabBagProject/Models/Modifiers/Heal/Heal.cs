@@ -1,7 +1,6 @@
 ﻿using GrabBagProject.Actions;
 using GrabBagProject.Controllers;
 using GrabBagProject.Models.Modifiers.Area;
-using GrabBagProject.Models.Modifiers.Heal;
 using GrabBagProject.Models.Pieces;
 using GrabBagProject.Models.Stats;
 using GrabBagProject.Models.Units;
@@ -12,15 +11,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GrabBagProject.Models.Modifiers.Block
+namespace GrabBagProject.Models.Modifiers.Heal
 {
     /// <summary>
-    /// Block adds armor, which can block incoming damage.
+    /// Heal damage taken.
     /// </summary>
-    internal class Block : Modifier, IOnUse
+    internal class Heal : Modifier, IOnUse
     {
         public int Value { get; set; }
-        public Block(int value)
+        public Heal(int value)
         {
             Value = value;
         }
@@ -28,7 +27,7 @@ namespace GrabBagProject.Models.Modifiers.Block
         public override string ToString()
         {
             string value = base.ToString();
-            value += $"\nBlock {Value} - Gain {Value} armor";
+            value += $"\nHeal {Value} - Gain {Value} health";
             return value;
         }
 
@@ -39,32 +38,32 @@ namespace GrabBagProject.Models.Modifiers.Block
             Snapshot snapshot = Game.ActiveController.Snapshot;
 
             Unit? user = snapshot?.User;
-            if (user == null) return;
+            if (user is null) return;
 
-            int block;
+            int heal;
 
-            // Guardian Modifier check.
+            // Medic Modifier check.
             Enemy? enemy = user as Enemy;
             if (enemy is not null)
             {
-                Guardian? guardian = Utils.FindModifier<Guardian>(enemy.Modifiers);
-                if (guardian is not null)
+                Medic? medic = Utils.FindModifier<Medic>(enemy.Modifiers);
+                if (medic is not null)
                 {
                     CombatController? controller = Game.ActiveController as CombatController;
                     controller?.ActiveEnemies.ForEach(e =>
                     {
                         if (e == user)
-                            Console.WriteLine($"{user.Name} Blocking for {Value}.");
+                            Console.WriteLine($"{user.Name} Heals for {Value}.");
                         else
-                            Console.WriteLine($"{user.Name} giving {Value} Block to {e.Name}.");
-                        block = e.GainArmor(Value);
+                            Console.WriteLine($"{user.Name} Heals {e.Name} for {Value}.");
+                        heal = e.GainHealth(Value);
                     });
                     return;
                 }
             }
 
-            Console.WriteLine($"{user.Name} Blocking for {Value}.");
-            block = user.GainArmor(Value);
+            Console.WriteLine($"{user.Name} Heals for {Value}.");
+            heal = user.GainHealth(Value);
             return;
         }
 

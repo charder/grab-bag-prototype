@@ -41,9 +41,6 @@ namespace GrabBagProject
                               new Sluggish(),
                               new CombatCost(3, ("Power", 4)))
                 );
-            inventory.AddItem(new Item().Build("Healing Potion", "Simple means of regaining health.", 0,
-                               new ItemQuantity(4))
-                );
 
             //TODO: TEST BAG CODE
             Bag bag = Player.Bag;

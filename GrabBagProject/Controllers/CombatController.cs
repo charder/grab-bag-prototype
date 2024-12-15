@@ -3,6 +3,7 @@ using GrabBagProject.Models.Commands;
 using GrabBagProject.Models.Items;
 using GrabBagProject.Models.Items.ItemHolders;
 using GrabBagProject.Models.Modifiers;
+using GrabBagProject.Models.Modifiers.Area;
 using GrabBagProject.Models.Modifiers.Attack;
 using GrabBagProject.Models.Modifiers.Block;
 using GrabBagProject.Models.Modifiers.Cooldown;
@@ -42,7 +43,9 @@ namespace GrabBagProject.Controllers
                     new Pierce(0),
                     new Sluggish(),
                     new EnemyCooldown(1)),
-
+                new Enemy("Shield Goblin", 12,
+                    new Block(1),
+                    new Guardian()),
             ];
             Command command = new (
                 "Pass",
@@ -68,10 +71,10 @@ namespace GrabBagProject.Controllers
         public void StartCombat()
         {
             Game.Player.Bag.FillCurrentBag();
-            PullTurnPieces();
             (_handler as CombatHandler)?.StartCombat();
             EnemyPool.Remove(_mainEnemy);
             CycleEnemies();
+            TurnStart();
         }
 
         public void SpendPieces(params (string, int)[] pieces)
@@ -91,7 +94,7 @@ namespace GrabBagProject.Controllers
 
             CycleEnemies();
 
-            PullTurnPieces();
+            TurnStart();
         }
 
         private void Enemies(string[] args)
@@ -196,6 +199,12 @@ namespace GrabBagProject.Controllers
                 Console.WriteLine("Main enemy defeated. You win!");
             }
             ActiveEnemies.Remove(enemy);
+        }
+
+        public virtual void TurnStart()
+        {
+            PullTurnPieces();
+            (_handler as CombatHandler)?.TurnStart();
         }
 
         public virtual void TurnEnded()

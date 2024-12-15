@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GrabBagProject.Models.Modifiers.Heal;
+using GrabBagProject.Models.Modifiers.Charge;
 
 namespace GrabBagProject.Data
 {
@@ -30,10 +32,37 @@ namespace GrabBagProject.Data
                   new Attack(6),
                   new CombatCost(1, ("Power", 2))
                 ));
+            _weapons.Add(new Weapon().Build("Magic Wand", "Basic magic weapon.", 4,
+                  new Attack(6),
+                  new Charge(1),
+                  new Recharge(1),
+                  new CombatCost(0, ("Magic", 2))
+                ));
             #endregion
 
             #region SHIELDS
 
+            #endregion
+
+            #region HELMETS
+
+            #endregion
+
+            #region ARMOR
+
+            #endregion
+
+            #region BOOTS
+
+            #endregion
+
+            #region MISC
+            _misc.Add(new Item().Build("Fiery Flask", "Healing item that refreshes its charges each fight.", 4,
+              new Heal(5),
+              new Charge(3),
+              new Capacity(3),
+              new CombatCost(1)
+            ));
             #endregion
         }
 
