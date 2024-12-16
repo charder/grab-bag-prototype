@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GrabBagProject.Models.Modifiers.Heal
+namespace GrabBagProject.Models.Modifiers.Health
 {
     /// <summary>
     /// Heal damage taken.

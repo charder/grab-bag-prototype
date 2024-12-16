@@ -1,7 +1,7 @@
 ﻿using GrabBagProject.Actions;
 using GrabBagProject.Controllers;
 using GrabBagProject.Models.Modifiers.Area;
-using GrabBagProject.Models.Modifiers.Heal;
+using GrabBagProject.Models.Modifiers.Health;
 using GrabBagProject.Models.Pieces;
 using GrabBagProject.Models.Stats;
 using GrabBagProject.Models.Units;

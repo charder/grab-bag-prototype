@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GrabBagProject.Models.Modifiers.Heal;
+using GrabBagProject.Models.Modifiers.Health;
 using GrabBagProject.Models.Modifiers.Charge;
 
 namespace GrabBagProject.Data

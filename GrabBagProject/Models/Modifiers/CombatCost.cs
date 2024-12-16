@@ -44,6 +44,13 @@ namespace GrabBagProject.Models.Modifiers
             _currentCooldown = Cooldown;
         }
 
+        public int LowerCooldown(int amount)
+        {
+            amount = Math.Min(amount, _currentCooldown);
+            _currentCooldown -= amount;
+            return amount;
+        }
+
         #region INTERFACES
 
         public bool IsUsable()
