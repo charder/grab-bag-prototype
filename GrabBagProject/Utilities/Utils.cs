@@ -10,9 +10,9 @@ namespace GrabBagProject.Utilities
             return string.Equals(str1, str2, StringComparison.OrdinalIgnoreCase);
         }
 
-        public static T? FindModifier<T>(ICollection<Modifier> modifiers) where T : Modifier
+        public static T? FindModifier<T>(ICollection<Modifier>? modifiers) where T : Modifier
         {
-            return (T?)modifiers.FirstOrDefault(m => m is T);
+            return (T?)modifiers?.FirstOrDefault(m => m is T);
         }
     }
 }

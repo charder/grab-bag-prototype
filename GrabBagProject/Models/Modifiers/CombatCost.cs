@@ -69,7 +69,6 @@ namespace GrabBagProject.Models.Modifiers
             CombatController? combatController = Game.ActiveController as CombatController;
             if (combatController == null) return;
             combatController.SpendPieces(Costs.ToArray());
-
         }
 
         public void AfterUse()

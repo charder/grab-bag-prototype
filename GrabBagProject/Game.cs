@@ -2,7 +2,7 @@
 using GrabBagProject.Models.Items;
 using GrabBagProject.Models.Items.ItemHolders;
 using GrabBagProject.Models.Modifiers;
-using GrabBagProject.Models.Modifiers.Attack;
+using GrabBagProject.Models.Modifiers.Offensive;
 using GrabBagProject.Models.Modifiers.Block;
 using GrabBagProject.Models.Modifiers.Cooldown;
 using GrabBagProject.Models.Pieces;
@@ -30,17 +30,20 @@ namespace GrabBagProject
             Inventory inventory = Player.Inventory;
             inventory.AddItem(new Weapon().Build("Sword", "Basic sharp blade.", 4,
                               new Attack(6),
-                              new CombatCost(1))
-                );
+                              new CombatCost(1)
+                ));
             inventory.AddItem(new Shield().Build("Wooden Shield", "Weak wooden shield for blocking some damage.", 4,
                               new Block(5),
-                              new CombatCost(1, ("Guard", 2)))
-                );
+                              new CombatCost(1, ("Guard", 2))
+                ));
             inventory.AddItem(new Weapon().Build("Great Axe", "Very large axe.", 10,
                               new Attack(20),
                               new Sluggish(),
-                              new CombatCost(3, ("Power", 4)))
-                );
+                              new CombatCost(3, ("Power", 4))
+                ));
+            inventory.AddItem(new Armor().Build("Leather Armor", "Padded for protection.", 6,
+                              new Armored(4)
+                ));
 
             //TODO: TEST BAG CODE
             Bag bag = Player.Bag;

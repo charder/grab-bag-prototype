@@ -186,6 +186,8 @@ namespace GrabBagProject.Handlers
             {
                 enemy.Modifiers.ForEach(m => (m as IOnCombatStart)?.OnCombatStart());
             }
+
+            TurnStart();
         }
 
         public virtual void TurnStart()
@@ -195,12 +197,12 @@ namespace GrabBagProject.Handlers
 
             // ON TURN START - PLAYER THEN ENEMIES
             List<Item> allItems = player.Inventory.GetAllItems();
-            allItems.ForEach(i => i.Modifiers.ForEach(m => (m as IOnTurnEnd)?.OnTurnEnd()));
+            allItems.ForEach(i => i.Modifiers.ForEach(m => (m as IOnTurnStart)?.OnTurnStart()));
 
             var enemies = _combatController.ActiveEnemies;
             foreach (Enemy enemy in enemies)
             {
-                enemy.Modifiers.ForEach(m => (m as IOnTurnEnd)?.OnTurnEnd());
+                enemy.Modifiers.ForEach(m => (m as IOnTurnStart)?.OnTurnStart());
             }
         }
 

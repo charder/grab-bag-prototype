@@ -1,6 +1,6 @@
 ﻿using GrabBagProject.Models.Items;
 using GrabBagProject.Models.Items.ItemHolders;
-using GrabBagProject.Models.Modifiers.Attack;
+using GrabBagProject.Models.Modifiers.Offensive;
 using GrabBagProject.Models.Modifiers.Block;
 using GrabBagProject.Models.Modifiers.Cooldown;
 using GrabBagProject.Models.Modifiers;

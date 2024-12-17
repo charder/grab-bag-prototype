@@ -25,6 +25,13 @@
             Armor = 0;
         }
 
+        public virtual int TakeCorrosion(int damage)
+        {
+            int value = Math.Min(Armor, damage);
+            Armor -= value;
+            return value;
+        }
+
         public virtual int TakeDamage(int damage)
         {
             int diff = Armor - damage;

@@ -1,5 +1,6 @@
 ﻿using GrabBagProject.Actions;
 using GrabBagProject.Controllers;
+using GrabBagProject.Models.Items;
 using GrabBagProject.Models.Pieces;
 using GrabBagProject.Models.Stats;
 using GrabBagProject.Models.Units;
@@ -12,12 +13,12 @@ using System.Threading.Tasks;
 namespace GrabBagProject.Models.Modifiers.Block
 {
     /// <summary>
-    /// Armor is the base value that blocks incoming damage.
+    /// Gain Armor each turn.
     /// </summary>
-    internal class Armor : Modifier, IOnTurnStart
+    internal class Armored : Modifier, IOnTurnStart
     {
         public int Value { get; set; }
-        public Armor(int value)
+        public Armored(int value)
         {
             Value = value;
         }
@@ -25,7 +26,7 @@ namespace GrabBagProject.Models.Modifiers.Block
         public override string ToString()
         {
             string value = base.ToString();
-            value += $"\nArmor {Value} - Gain {Value} armor at the start of each turn.";
+            value += $"\nArmored {Value} - Gain {Value} Armor at the start of each turn.";
             return value;
         }
 
@@ -37,14 +38,14 @@ namespace GrabBagProject.Models.Modifiers.Block
 
             int armor = 0;
 
-            Unit? target = ModifierHolder as Player;
-            if (target != null)
-            {
-                armor = target.GainArmor(Value);
+            //if (Modifier)
+            if (ModifierHolder is Item)
+            { 
+                armor = Game.Player.GainArmor(Value);
                 return;
             }
 
-            target = ModifierHolder as Enemy;
+            Unit? target = ModifierHolder as Enemy;
             if (target != null)
             {
                 armor = target.GainArmor(Value);

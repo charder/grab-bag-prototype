@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GrabBagProject.Models.Modifiers.Attack
+namespace GrabBagProject.Models.Modifiers.Offensive
 {
     /// <summary>
     /// Thorns deals damage back to attacker when Attacked (specific actions like Attack and Pierce)

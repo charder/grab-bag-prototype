@@ -3,21 +3,22 @@ using GrabBagProject.Controllers;
 using GrabBagProject.Models.Pieces;
 using GrabBagProject.Models.Stats;
 using GrabBagProject.Models.Units;
+using GrabBagProject.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GrabBagProject.Models.Modifiers.Attack
+namespace GrabBagProject.Models.Modifiers.Offensive
 {
     /// <summary>
-    /// Attack deals damage, which can be blocked by armor.
+    /// Pierce deals damage, ignoring armor.
     /// </summary>
-    internal class Attack : Modifier, IAmAttack, IOnUse, ITargetable
+    internal class Pierce : Modifier, IAmAttack, IOnUse, ITargetable
     {
         public int Value { get; set; }
-        public Attack(int value)
+        public Pierce(int value)
         {
             Value = value;
         }
@@ -25,7 +26,7 @@ namespace GrabBagProject.Models.Modifiers.Attack
         public override string ToString()
         {
             string value = base.ToString();
-            value += $"\nAttack {Value} - Deal {Value} damage to target";
+            value += $"\nPierce {Value} - Deal {Value} damage to target, ignoring armor.";
             return value;
         }
 
@@ -33,15 +34,18 @@ namespace GrabBagProject.Models.Modifiers.Attack
 
         public void OnUse()
         {
+            // Attack Modifier groups Pierce and Corrosion into one damage "instance".
+            if (Utils.FindModifier<Attack>(ModifierHolder?.Modifiers) is not null) return;
+
             Snapshot snapshot = Game.ActiveController.Snapshot;
 
-            foreach(Unit? target in snapshot.Targets)
+            foreach (Unit? target in snapshot.Targets)
             {
                 if (target == null) continue;
 
-                Console.WriteLine($"{snapshot?.User?.Name} Attacking {target.Name} for {Value}.");
+                Console.WriteLine($"\n{snapshot?.User?.Name} Pierce attacking {target.Name} for {Value}.");
 
-                int damage = target.TakeDamage(Value);
+                int damage = target.TakePierce(Value);
                 if (damage == 0) continue;
 
                 (Game.ActiveController as CombatController)?.UnitDamaged(target, damage);

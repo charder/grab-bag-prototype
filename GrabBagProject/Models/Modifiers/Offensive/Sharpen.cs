@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GrabBagProject.Models.Modifiers.Pierce
+namespace GrabBagProject.Models.Modifiers.Offensive
 {
     /// <summary>
     /// Increases Pierce after use this turn
