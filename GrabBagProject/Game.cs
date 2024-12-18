@@ -41,8 +41,15 @@ namespace GrabBagProject
                               new Sluggish(),
                               new CombatCost(3, ("Power", 4))
                 ));
+
+            inventory.AddItem(new Helmet().Build("Sallet", "An iron helmet.", 8,
+                  new Armored(4)
+                ));
             inventory.AddItem(new Armor().Build("Leather Armor", "Padded for protection.", 6,
                               new Armored(4)
+                ));
+            inventory.AddItem(new Boots().Build("Leather Boots", "Keeps you on your feet. Built to last.", 4,
+                  new Armored(2)
                 ));
 
             //TODO: TEST BAG CODE

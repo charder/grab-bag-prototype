@@ -69,7 +69,15 @@ namespace GrabBagProject.Data
         public ICollection<Item> GetShopItems()
         {
             List<Item> items = new();
-
+            items.Add(new Helmet().Build("Leather Helm", "Padded for protection.", 4,
+                  new Armored(2)
+                ));
+            items.Add(new Armor().Build("Leather Armor", "Padded for protection.", 6,
+                  new Armored(4)
+                ));
+            items.Add(new Boots().Build("Leather Boots", "Padded for protection.", 4,
+                  new Armored(2)
+                ));
 
 
             return items;

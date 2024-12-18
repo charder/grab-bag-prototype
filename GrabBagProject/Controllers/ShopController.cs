@@ -85,10 +85,12 @@ namespace GrabBagProject.Controllers
                             Console.WriteLine($"Not enough gold to purchase {item.Name}! Need {cost}, have {inventory.Gold}.");
                         else
                         {
-                            inventory.Gold -= cost;
-                            _shop.RemoveItem(item);
-                            inventory.AddItem(item);
-                            Console.WriteLine($"Purchased {item.Name} for {cost} gold.");
+                            if (inventory.AddItem(item))
+                            {
+                                inventory.Gold -= cost;
+                                _shop.RemoveItem(item);
+                                Console.WriteLine($"Purchased {item.Name} for {cost} gold.");
+                            }
                         }
                     }
                     else
