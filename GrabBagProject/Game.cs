@@ -28,27 +28,26 @@ namespace GrabBagProject
             //TODO: TEST INVENTORY CODE
             Player = new Player(20);
             Inventory inventory = Player.Inventory;
-            inventory.AddItem(new Weapon().Build("Sword", "Basic sharp blade.", 4,
+            inventory.AddItem(new Weapon().Build("Blade", "Basic sharp blade.", 4,
                               new Attack(6),
-                              new CombatCost(1)
+                              new CombatCost(1, ("Power", 1))
                 ));
-            inventory.AddItem(new Shield().Build("Wooden Shield", "Weak wooden shield for blocking some damage.", 4,
-                              new Block(5),
-                              new CombatCost(1, ("Guard", 2))
-                ));
-            inventory.AddItem(new Weapon().Build("Great Axe", "Very large axe.", 10,
-                              new Attack(20),
-                              new Sluggish(),
-                              new CombatCost(3, ("Power", 4))
+            inventory.AddItem(new Weapon().Build("Blade", "Basic sharp blade.", 4,
+                              new Attack(6),
+                              new CombatCost(1, ("Power", 1))
                 ));
 
-            inventory.AddItem(new Helmet().Build("Sallet", "An iron helmet.", 8,
-                  new Armored(4)
+
+            inventory.AddItem(new Helmet().Build("Red Visor", "All you see is red.", 8,
+                              new Rush(1),
+                              new CombatCost(1, ("Energy", 2))
                 ));
-            inventory.AddItem(new Armor().Build("Leather Armor", "Padded for protection.", 6,
-                              new Armored(4)
+            inventory.AddItem(new Armor().Build("Core Armor", "Padded for protection.", 6,
+                              new Armored(4),
+                              new Block(4),
+                              new CombatCost(0, ("Guard", 1))
                 ));
-            inventory.AddItem(new Boots().Build("Leather Boots", "Keeps you on your feet. Built to last.", 4,
+            inventory.AddItem(new Boots().Build("Core Boots", "Keeps you on your feet.", 4,
                   new Armored(2)
                 ));
 

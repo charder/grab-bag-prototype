@@ -12,14 +12,14 @@
     "Type": 1
   },
   {
-    "Name": "Mana",
-    "Description": "Centered around special abilities.",
+    "Name": "Utility",
+    "Description": "Centered around supporting abilities.",
     "Value": 1,
     "Type": 1
   },
   {
-    "Name": "Agility",
-    "Description": "Centered around cooldown management.",
+    "Name": "Energy",
+    "Description": "Centered around cooldown and charges.",
     "Value": 1,
     "Type": 1
   },
