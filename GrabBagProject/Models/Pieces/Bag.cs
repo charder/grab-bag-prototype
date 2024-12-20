@@ -50,6 +50,23 @@ namespace GrabBagProject.Models.Pieces
             return string.Empty;
         }
 
+        public int PieceCountInCurrentBag(string name)
+        {
+            return PieceCount(CurrentBag, name);
+        }
+
+        public int PieceCountInFullBag(string name)
+        {
+            return PieceCount(FullBag, name);
+        }
+
+        protected int PieceCount(Dictionary<string, int> bag, string name)
+        {
+            int count = 0;
+            bag.TryGetValue(name, out count);
+            return count;
+        }
+
 
 
         #region ADD/REMOVE PIECES
