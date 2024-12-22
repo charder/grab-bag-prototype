@@ -50,6 +50,11 @@ namespace GrabBagProject
             inventory.AddItem(new Boots().Build("Core Boots", "Keeps you on your feet.", 4,
                   new Armored(2)
                 ));
+            inventory.AddItem(new Item().Build("Red Chip", "Plug it in for Power.", 10,
+                              new Energize(2),
+                              new Locked(),
+                              new CombatCost(2, ("Utility", 1), ("Energy", 1))
+                ));
 
             //TODO: TEST BAG CODE
             Bag bag = Player.Bag;

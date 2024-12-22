@@ -1,6 +1,8 @@
 ﻿using GrabBagProject.Actions;
 using GrabBagProject.Controllers;
+using GrabBagProject.Models.Modifiers.Cooldown;
 using GrabBagProject.Models.Pieces;
+using GrabBagProject.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,6 +48,10 @@ namespace GrabBagProject.Models.Modifiers
 
         public int LowerCooldown(int amount)
         {
+            // Locked Items cannot have their cooldowns lowered.
+            Locked? locked = Utils.FindModifier<Locked>(ModifierHolder?.Modifiers);
+            if (locked is not null) return 0;
+
             amount = Math.Min(amount, _currentCooldown);
             _currentCooldown -= amount;
             return amount;
