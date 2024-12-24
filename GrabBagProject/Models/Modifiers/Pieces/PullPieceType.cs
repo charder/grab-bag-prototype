@@ -59,6 +59,9 @@ namespace GrabBagProject.Models.Modifiers.Pieces
     }
 }
 
-internal class Energize : PullPieceType { public Energize(int value) : base("Power", value, "Energize") { } }
+internal class Reload : PullPieceType { public Reload(int value) : base("Power", value, "Reload") { } }
+internal class Reinforce : PullPieceType { public Reinforce(int value) : base("Guard", value, "Reinforce") { } }
+internal class Restock : PullPieceType { public Restock(int value) : base("Utility", value, "Restock") { } }
+internal class Reenergize : PullPieceType { public Reenergize(int value) : base("Energy", value, "Reenergize") { } }
 
 
