@@ -19,14 +19,11 @@ namespace GrabBagProject.Models.Modifiers.Cooldown
     /// </summary>
     internal class Rush : Swift
     {
-        public int Value { get; set; }
         public Rush(int value) : base(value) { }
 
         public override string ToString()
         {
-            string value = base.ToString();
-            value += $"\nRush {Value} - Reduce all active Weapon cooldowns by {Value}.";
-            return value;
+            return $"\nRush {Value} - Reduce all active Weapon cooldowns by {Value}.";
         }
 
         #region INTERFACES

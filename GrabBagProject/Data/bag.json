@@ -1,22 +1,18 @@
 [
   {
     "Name":  "Power",
-    "Quantity": 2
+    "Quantity": 5
   },
   {
     "Name": "Guard",
-    "Quantity": 2
+    "Quantity": 5
   },
   {
     "Name": "Utility",
-    "Quantity": 2
+    "Quantity": 5
   },
   {
     "Name": "Energy",
-    "Quantity": 2
-  },
-  {
-    "Name":  "Coin",
-    "Quantity": 2
+    "Quantity": 5
   }
 ]
