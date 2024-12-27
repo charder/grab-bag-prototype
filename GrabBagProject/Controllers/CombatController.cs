@@ -24,10 +24,9 @@ namespace GrabBagProject.Controllers
         {
             _handler = new CombatHandler(this);
 
+            /*
             _mainEnemy = new Enemy("Pack Goblin", 1,
                              new Attack(0));
-
-            //TODO: SEPARATE AllEnemies AND ActiveEnemies LOGIC.
             EnemyPool = [
                 _mainEnemy,
                 new Enemy("Goblin 1", 10,
@@ -46,6 +45,38 @@ namespace GrabBagProject.Controllers
                     new Block(1),
                     new Guardian()),
             ];
+            */
+            
+            _mainEnemy = new Enemy("Phisherman", 60,
+                             new Attack(4),
+                             new EnemyCooldown(1)
+                             );
+            EnemyPool = [
+                _mainEnemy,
+                new Enemy("Swordphish", 20,
+                    new Attack(6)),
+                new Enemy("Swordphish", 20,
+                    new Attack(6)),
+                new Enemy("Bomb Bass", 12,
+                    new Attack(3)),
+                new Enemy("Bomb Bass", 12,
+                    new Attack(3)),
+                new Enemy("Walleye", 15,
+                    new Block(5),
+                    new Guardian()),
+                new Enemy("Walleye", 15,
+                    new Block(5),
+                    new Guardian()),
+                new Enemy("Pike", 12,
+                    new Pierce(4),
+                    new Sluggish(),
+                    new EnemyCooldown(1)),
+                new Enemy("Pike", 12,
+                    new Pierce(4),
+                    new Sluggish(),
+                    new EnemyCooldown(1)),
+            ];
+
             Command command = new (
                 "Pass",
                 "When you've finished using your pieces, this ends your turn.",

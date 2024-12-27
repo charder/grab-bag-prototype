@@ -20,10 +20,10 @@ namespace GrabBagProject.Data
     class ShopItems
     {
         List<Item> _weapons = new();
-        List<Item> _shields = new();
         List<Item> _helmets = new();
         List<Item> _armor = new();
         List<Item> _boots = new();
+        List<Item> _chips = new();
         List<Item> _misc = new();
         public ShopItems()
         {
@@ -40,10 +40,6 @@ namespace GrabBagProject.Data
                 ));
             #endregion
 
-            #region SHIELDS
-
-            #endregion
-
             #region HELMETS
 
             #endregion
@@ -53,6 +49,10 @@ namespace GrabBagProject.Data
             #endregion
 
             #region BOOTS
+
+            #endregion
+
+            #region CHIPS
 
             #endregion
 

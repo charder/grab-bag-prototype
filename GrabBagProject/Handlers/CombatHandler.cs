@@ -129,7 +129,6 @@ namespace GrabBagProject.Handlers
                 Player? player = Game.Player;
                 List<Item> allItems = player.Inventory.GetAllItems();
                 allItems.ForEach(i => i.Modifiers.ForEach(m => (m as IBeingAttacked)?.BeingAttacked()));
-                return;
             }
 
             // AFTER USE
