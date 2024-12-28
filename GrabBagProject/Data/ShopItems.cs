@@ -11,6 +11,9 @@ using System.Text;
 using System.Threading.Tasks;
 using GrabBagProject.Models.Modifiers.Health;
 using GrabBagProject.Models.Modifiers.Charge;
+using GrabBagProject.Utilities;
+using GrabBagProject.Models.Modifiers.Pieces;
+using GrabBagProject.Models.Modifiers.Area;
 
 namespace GrabBagProject.Data
 {
@@ -28,15 +31,19 @@ namespace GrabBagProject.Data
         public ShopItems()
         {
             #region WEAPONS
-            _weapons.Add(new Weapon().Build("Sword", "Basic sharp blade.", 4,
-                  new Attack(6),
-                  new CombatCost(1, ("Power", 2))
+            _weapons.Add(new Weapon().Build("Laser Pistol", "Hand held blaster.", 6,
+                  new Attack(5),
+                  new CombatCost(1, ("Power", 1))
                 ));
-            _weapons.Add(new Weapon().Build("Magic Wand", "Basic magic weapon.", 4,
+            _weapons.Add(new Weapon().Build("Laser Repeater", "Rapid-fire blaster.", 8,
                   new Attack(6),
-                  new Charge(1),
-                  new Recharge(1),
-                  new CombatCost(0, ("Magic", 2))
+                  new CombatCost(0, ("Power", 1), ("Energy", 1))
+                ));
+            _weapons.Add(new Weapon().Build("Ion Cannon", "Killer blast.", 20,
+                  new Attack(20),
+                  new Cleave(),
+                  new Sluggish(),
+                  new CombatCost(5, ("Power", 4))
                 ));
             #endregion
 
@@ -53,7 +60,12 @@ namespace GrabBagProject.Data
             #endregion
 
             #region CHIPS
-
+            _chips.Add(new Item().Build("Overclock Chip", "Push yourself to the limit.", 10,
+                  new Pull(2),
+                  new Locked(),
+                  new Sacrifice(5),
+                  new CombatCost(2)
+            ));
             #endregion
 
             #region MISC
@@ -69,17 +81,12 @@ namespace GrabBagProject.Data
         public ICollection<Item> GetShopItems()
         {
             List<Item> items = new();
-            items.Add(new Helmet().Build("Leather Helm", "Padded for protection.", 4,
-                  new Armored(2)
-                ));
-            items.Add(new Armor().Build("Leather Armor", "Padded for protection.", 6,
-                  new Armored(4)
-                ));
-            items.Add(new Boots().Build("Leather Boots", "Padded for protection.", 4,
-                  new Armored(2)
-                ));
-
-
+            items.AddRange(Utils.GetRandomFromCollection(_weapons, 5));
+            items.AddRange(Utils.GetRandomFromCollection(_helmets, 5));
+            items.AddRange(Utils.GetRandomFromCollection(_armor, 5));
+            items.AddRange(Utils.GetRandomFromCollection(_boots, 5));
+            items.AddRange(Utils.GetRandomFromCollection(_chips, 5));
+            items.AddRange(Utils.GetRandomFromCollection(_misc, 5));
             return items;
         }
     }

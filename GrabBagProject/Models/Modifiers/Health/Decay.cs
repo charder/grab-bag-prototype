@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace GrabBagProject.Models.Modifiers.Health
 {
     /// <summary>
-    /// Heal damage taken.
+    /// Decay deals damage to the Modifier holder at the end of each turn.
     /// </summary>
     internal class Decay : Modifier, IOnTurnEnd
     {

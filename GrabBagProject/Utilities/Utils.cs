@@ -14,5 +14,24 @@ namespace GrabBagProject.Utilities
         {
             return (T?)modifiers?.FirstOrDefault(m => m is T);
         }
+
+        public static ICollection<T> GetRandomFromCollection<T>(ICollection<T> collection, int count = 1) where T : class
+        {
+            List<T> results = new();
+            Random random = new Random();
+            count = Math.Min(count, collection.Count);
+
+            for(int i = 0; i < count; i++)
+            {
+                T element = collection.ElementAt(random.Next(collection.Count));
+                collection.Remove(element);
+                results.Add(element);
+            }
+
+            foreach (var element in results)
+                collection.Add(element);
+
+            return results;
+        }
     }
 }
