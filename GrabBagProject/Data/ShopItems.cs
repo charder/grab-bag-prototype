@@ -39,24 +39,56 @@ namespace GrabBagProject.Data
                   new Attack(6),
                   new CombatCost(0, ("Power", 1), ("Energy", 1))
                 ));
+            _weapons.Add(new Weapon().Build("Rail Gun", "Full pierce.", 16,
+                  new Pierce(10),
+                  new CombatCost(3, ("Power", 2))
+                ));
             _weapons.Add(new Weapon().Build("Ion Cannon", "Killer blast.", 20,
                   new Attack(20),
                   new Cleave(),
                   new Sluggish(),
                   new CombatCost(5, ("Power", 4))
                 ));
+            _weapons.Add(new Weapon().Build("Gravity Club", "A forceful blast with every swing.", 20,
+                  new Attack(10),
+                  new Cleave(),
+                  new CombatCost(2, ("Power", 3))
+                ));
             #endregion
 
             #region HELMETS
-
+            _helmets.Add(new Helmet().Build("Red Visor", "All you see is red.", 12,
+                  new Rush(1),
+                  new CombatCost(1, ("Energy", 2))
+                ));
+            _helmets.Add(new Helmet().Build("Bubble Helmet", "Stay safe out there.", 10,
+                  new Armored(2),
+                  new Regenerate(1)
+                ));
             #endregion
 
             #region ARMOR
-
+            _armor.Add(new Armor().Build("Light Suit", "Armored and agile.", 20,
+                  new Armored(2),
+                  new Block(4),
+                  new CombatCost(0, ("Guard", 1))
+                ));
+            _armor.Add(new Armor().Build("Medium Suit", "Extra padding as necessary.", 20,
+                  new Armored(5),
+                  new Block(5),
+                  new CombatCost(1, ("Guard", 1))
+                ));
+            _armor.Add(new Armor().Build("Heavy Suit", "Armored to the core.", 20,
+                  new Armored(8),
+                  new Block(8),
+                  new CombatCost(2, ("Guard", 3))
+                ));
             #endregion
 
             #region BOOTS
-
+            _boots.Add(new Boots().Build("Heavy Boots", "Keeps you on your feet", 10,
+                  new Armored(4)
+                ));
             #endregion
 
             #region CHIPS
@@ -65,11 +97,16 @@ namespace GrabBagProject.Data
                   new Locked(),
                   new Sacrifice(5),
                   new CombatCost(2)
-            ));
+                ));
+            _chips.Add(new Item().Build("Red Chip", "Plug it in for Power.", 10,
+                  new Reload(2),
+                  new Locked(),
+                  new CombatCost(2, ("Utility", 1), ("Energy", 1))
+                ));
             #endregion
 
             #region MISC
-            _misc.Add(new Item().Build("Fiery Flask", "Healing item that refreshes its charges each fight.", 4,
+            _misc.Add(new Item().Build("Fiery Flask", "Healing item that refreshes its charges each fight.", 12,
               new Heal(5),
               new Charge(3),
               new Capacity(3),

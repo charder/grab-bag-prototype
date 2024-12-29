@@ -37,23 +37,10 @@ namespace GrabBagProject
                               new CombatCost(1, ("Power", 1))
                 ));
 
-
-            inventory.AddItem(new Helmet().Build("Red Visor", "All you see is red.", 8,
-                              new Rush(1),
-                              new CombatCost(1, ("Energy", 2))
-                ));
             inventory.AddItem(new Armor().Build("Core Armor", "Padded for protection.", 6,
                               new Armored(4),
                               new Block(4),
                               new CombatCost(0, ("Guard", 1))
-                ));
-            inventory.AddItem(new Boots().Build("Core Boots", "Keeps you on your feet.", 4,
-                  new Armored(2)
-                ));
-            inventory.AddItem(new Item().Build("Red Chip", "Plug it in for Power.", 10,
-                              new Reload(2),
-                              new Locked(),
-                              new CombatCost(2, ("Utility", 1), ("Energy", 1))
                 ));
 
             //TODO: TEST BAG CODE
