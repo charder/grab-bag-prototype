@@ -89,6 +89,11 @@ namespace GrabBagProject.Data
             _boots.Add(new Boots().Build("Heavy Boots", "Keeps you on your feet", 10,
                   new Armored(4)
                 ));
+            _boots.Add(new Boots().Build("Jet Boots", "Quick boost", 12,
+                  new Armored(2),
+                  new Swift(1),
+                  new CombatCost(1, ("Energy", 2))
+                ));
             #endregion
 
             #region CHIPS

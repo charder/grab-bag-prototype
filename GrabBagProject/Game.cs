@@ -28,20 +28,6 @@ namespace GrabBagProject
             //TODO: TEST INVENTORY CODE
             Player = new Player(20);
             Inventory inventory = Player.Inventory;
-            inventory.AddItem(new Weapon().Build("Blade", "Basic sharp blade.", 4,
-                              new Attack(6),
-                              new CombatCost(1, ("Power", 1))
-                ));
-            inventory.AddItem(new Weapon().Build("Blade", "Basic sharp blade.", 4,
-                              new Attack(6),
-                              new CombatCost(1, ("Power", 1))
-                ));
-
-            inventory.AddItem(new Armor().Build("Core Armor", "Padded for protection.", 6,
-                              new Armored(4),
-                              new Block(4),
-                              new CombatCost(0, ("Guard", 1))
-                ));
 
             //TODO: TEST BAG CODE
             Bag bag = Player.Bag;
