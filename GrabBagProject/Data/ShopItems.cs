@@ -54,6 +54,23 @@ namespace GrabBagProject.Data
                   new Cleave(),
                   new CombatCost(2, ("Power", 3))
                 ));
+            _weapons.Add(new Weapon().Build("Autonomous Blade", "A blade of its own.", 10,
+                  new Attack(6),
+                  new CombatCost(2)
+                ));
+            _weapons.Add(new Weapon().Build("Autonomous Spear", "A spear of its own.", 10,
+                  new Pierce(4),
+                  new CombatCost(2)
+                ));
+            _weapons.Add(new Weapon().Build("Autonomous Warhammer", "A hammer of its own.", 14,
+                  new Attack(8),
+                  new Cleave(),
+                  new CombatCost(4)
+                ));
+            _weapons.Add(new Item().Build("Autonomous Shield", "A shield of its own.", 10,
+                  new Block(5),
+                  new CombatCost(3)
+                ));
             #endregion
 
             #region HELMETS
@@ -64,6 +81,9 @@ namespace GrabBagProject.Data
             _helmets.Add(new Helmet().Build("Bubble Helmet", "Stay safe out there.", 10,
                   new Armored(2),
                   new Regenerate(1)
+                ));
+            _helmets.Add(new Helmet().Build("Linked Headband", "Control of the autonomous.", 16,
+                  new Uplink(1)
                 ));
             #endregion
 

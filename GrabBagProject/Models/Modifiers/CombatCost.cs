@@ -17,7 +17,7 @@ namespace GrabBagProject.Models.Modifiers
     internal class CombatCost : Modifier, IUsable, IPayResources, IAfterUse, IOnTurnEnd
     {
         List<(string, int)> Costs { get; set; }
-        int Cooldown { get; set; }
+        public int Cooldown { get; set; }
         protected int _currentCooldown = 0;
         public int CurrentCooldown { get { return _currentCooldown; } }
         public CombatCost(int cooldown = 0, params (string, int)[] costs)
